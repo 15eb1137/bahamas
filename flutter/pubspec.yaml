@@ -51,5 +51,5 @@ flutter_icons:
   android: true
   image_path: "assets/images/ic_launcher.png"
 flutter_native_splash:
-  # color: "#826599"
+  color: "#e9e8e2"
   image: "assets/images/ic_launcher.png"
