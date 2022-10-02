@@ -6,7 +6,7 @@ on:
 env:
   FLUTTER_VERSION: '3.0.1'
   WORKING_FLUTTER_DIRECTORY: 'flutter'
-  PACKAGE_NAME: 'com.iori.malibu_milk'
+  PACKAGE_NAME: 'com.iori.bahamas'
 
 jobs:
   deploy_android:
@@ -28,13 +28,13 @@ jobs:
         with:
           name: appbundle
           path: flutter/build/app/outputs/bundle/release
-          workflow: ci.yml
+          workflow: cibuild.yml
       - uses: r0adkll/upload-google-play@v1.0.17
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_KEY_JSON_PLAIN }}
           packageName: ${{ env.PACKAGE_NAME }}
           releaseFiles: flutter/build/app/outputs/bundle/release/app-release.aab
-          status: draft
+          status: completed
           track: internal
           whatsNewDirectory: distribution/whatsnew
   build_version_increment:
@@ -48,7 +48,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: main
-      - run: git checkout -b release
       - name: yq current version
         id: yq-current-version
         uses: mikefarah/yq@master
