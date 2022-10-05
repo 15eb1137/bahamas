@@ -18,7 +18,7 @@ void main() {
     expect(find.text('あい'), findsNothing);
     expect(find.text('い'), findsOneWidget);
   });
-  testWidgets('BackArrowButton Learning test', (tester) async {
+  testWidgets('BackArrowButton test', (tester) async {
     final callback = MockCallBack();
     await tester.pumpWidget(wrap(BackArrowButton(callback.called)));
     await tester.tap(find.byType(BackArrowButton));
@@ -26,10 +26,43 @@ void main() {
     expect(callback.count, 1);
     expect(find.byIcon(Icons.arrow_back), findsOneWidget);
   });
+  testWidgets('MemoMenuButton test', (tester) async {
+    await tester.pumpWidget(wrap(const MemoMenuButton()));
+    expect(find.byIcon(Icons.more_vert), findsOneWidget);
+    expect(find.byType(ModalBottomSheet), findsNothing);
+    await tester.tap(find.byType(MemoMenuButton));
+    await tester.pump();
+    expect(find.byType(ModalBottomSheet), findsOneWidget);
+  });
+  testWidgets('ModalBottomSheet test', (tester) async {
+    await tester.pumpWidget(wrap(const ModalBottomSheet()));
+  });
   testWidgets('Memo test', (tester) async {
     await tester.pumpWidget(wrap(const Memo()));
     expect(find.byType(BackArrowButton), findsOneWidget);
   });
+}
+
+class ModalBottomSheet extends StatelessWidget {
+  const ModalBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox();
+  }
+}
+
+class MemoMenuButton extends StatelessWidget {
+  const MemoMenuButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          showModalBottomSheet<void>(
+              context: context, builder: (context) => const ModalBottomSheet());
+        },
+        icon: const Icon(Icons.more_vert));
+  }
 }
 
 class Memo extends StatelessWidget {
