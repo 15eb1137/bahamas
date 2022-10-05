@@ -26,6 +26,19 @@ void main() {
     expect(callback.count, 1);
     expect(find.byIcon(Icons.arrow_back), findsOneWidget);
   });
+  testWidgets('Memo test', (tester) async {
+    await tester.pumpWidget(wrap(const Memo()));
+    expect(find.byType(BackArrowButton), findsOneWidget);
+  });
+}
+
+class Memo extends StatelessWidget {
+  const Memo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BackArrowButton(() {});
+  }
 }
 
 class BackArrowButton extends StatelessWidget {
