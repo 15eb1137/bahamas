@@ -18,8 +18,35 @@ void main() {
     expect(find.text('あい'), findsNothing);
     expect(find.text('い'), findsOneWidget);
   });
+  testWidgets('BackArrowButton Learning test', (tester) async {
+    final callback = MockCallBack();
+    await tester.pumpWidget(wrap(BackArrowButton(callback.called)));
+    await tester.tap(find.byType(BackArrowButton));
+    await tester.pump();
+    expect(callback.count, 1);
+    expect(find.byIcon(Icons.arrow_back), findsOneWidget);
+  });
+}
+
+class BackArrowButton extends StatelessWidget {
+  const BackArrowButton(this.onPressed, {Key? key}) : super(key: key);
+
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(onPressed: onPressed, icon: const Icon(Icons.arrow_back));
+  }
 }
 
 Widget wrap(Widget child) {
   return MaterialApp(home: Material(child: child));
+}
+
+class MockCallBack {
+  int count = 0;
+
+  void called() {
+    count++;
+  }
 }
