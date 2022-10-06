@@ -86,8 +86,8 @@ class Memo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       BackArrowButton(() {}),
-      const TextField(maxLines: 1),
-      const TextField(maxLines: null)
+      const TextField(maxLines: 1, textInputAction: TextInputAction.next),
+      const TextField(maxLines: null, textInputAction: TextInputAction.newline)
     ]);
   }
 }
