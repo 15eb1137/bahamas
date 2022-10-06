@@ -42,12 +42,17 @@ void main() {
     expect(find.byType(BackArrowButton), findsOneWidget);
     expect(find.byType(TextField), findsNWidgets(2));
     expect(
-        find.byWidgetPredicate(
-            (widget) => widget is TextField && widget.maxLines == 1),
+        find.byWidgetPredicate((widget) =>
+            widget is TextField &&
+            widget.maxLines == 1 &&
+            widget.textInputAction == TextInputAction.next),
         findsOneWidget);
     expect(
-        find.byWidgetPredicate(
-            (widget) => widget is TextField && widget.maxLines == null),
+        find.byWidgetPredicate((widget) =>
+            widget is TextField &&
+            widget.keyboardType == TextInputType.multiline &&
+            widget.maxLines == null &&
+            widget.textInputAction == TextInputAction.newline),
         findsOneWidget);
   });
 }
