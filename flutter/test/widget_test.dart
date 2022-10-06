@@ -40,6 +40,7 @@ void main() {
   testWidgets('Memo test', (tester) async {
     await tester.pumpWidget(wrap(const Memo()));
     expect(find.byType(BackArrowButton), findsOneWidget);
+    expect(find.byType(TextField), findsNWidgets(2));
   });
 }
 
@@ -70,7 +71,11 @@ class Memo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackArrowButton(() {});
+    return Column(children: [
+      BackArrowButton(() {}),
+      const TextField(),
+      const TextField()
+    ]);
   }
 }
 
