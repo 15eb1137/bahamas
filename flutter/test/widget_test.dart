@@ -41,6 +41,14 @@ void main() {
     await tester.pumpWidget(wrap(const Memo()));
     expect(find.byType(BackArrowButton), findsOneWidget);
     expect(find.byType(TextField), findsNWidgets(2));
+    expect(
+        find.byWidgetPredicate(
+            (widget) => widget is TextField && widget.maxLines == 1),
+        findsOneWidget);
+    expect(
+        find.byWidgetPredicate(
+            (widget) => widget is TextField && widget.maxLines == null),
+        findsOneWidget);
   });
 }
 
