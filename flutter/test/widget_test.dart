@@ -54,7 +54,17 @@ void main() {
             widget.maxLines == null &&
             widget.textInputAction == TextInputAction.newline),
         findsOneWidget);
+    expect(find.byType(LastEdit), findsOneWidget);
   });
+}
+
+class LastEdit extends StatelessWidget {
+  const LastEdit({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox();
+  }
 }
 
 class ModalBottomSheet extends StatelessWidget {
@@ -87,7 +97,8 @@ class Memo extends StatelessWidget {
     return Column(children: [
       BackArrowButton(() {}),
       const TextField(maxLines: 1, textInputAction: TextInputAction.next),
-      const TextField(maxLines: null, textInputAction: TextInputAction.newline)
+      const TextField(maxLines: null, textInputAction: TextInputAction.newline),
+      const LastEdit()
     ]);
   }
 }
