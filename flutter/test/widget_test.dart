@@ -37,6 +37,29 @@ void main() {
   testWidgets('ModalBottomSheet test', (tester) async {
     await tester.pumpWidget(wrap(const ModalBottomSheet()));
   });
+  testWidgets('LastEdit test', (tester) async {
+    final now = DateTime(2022, 4, 1, 12, 0, 0);
+    final lastEditDateTimeToday = DateTime(2022, 4, 1, 0, 0, 0);
+    await tester
+        .pumpWidget(wrap(LastEdit(now: now, lastEdit: lastEditDateTimeToday)));
+    expect(find.text('編集時刻: 0:00'), findsOneWidget);
+    final lastEditDateTimeYesterday = DateTime(2022, 3, 31, 23, 59, 59);
+    await tester.pumpWidget(
+        wrap(LastEdit(now: now, lastEdit: lastEditDateTimeYesterday)));
+    expect(find.text('編集時刻: 昨日23:59'), findsOneWidget);
+    final lastEditDateTimeTwoDaysAgo = DateTime(2022, 3, 30, 23, 59, 59);
+    await tester.pumpWidget(
+        wrap(LastEdit(now: now, lastEdit: lastEditDateTimeTwoDaysAgo)));
+    expect(find.text('編集日時: 3月30日'), findsOneWidget);
+    final lastEditDateTimeThisYear = DateTime(2022, 1, 1, 0, 0, 0);
+    await tester.pumpWidget(
+        wrap(LastEdit(now: now, lastEdit: lastEditDateTimeThisYear)));
+    expect(find.text('編集日時: 1月1日'), findsOneWidget);
+    final lastEditDateTimeLastYear = DateTime(2021, 12, 31, 23, 59, 59);
+    await tester.pumpWidget(
+        wrap(LastEdit(now: now, lastEdit: lastEditDateTimeLastYear)));
+    expect(find.text('編集日時: 2021年12月31日'), findsOneWidget);
+  });
   testWidgets('Memo test', (tester) async {
     await tester.pumpWidget(wrap(const Memo()));
     expect(find.byType(BackArrowButton), findsOneWidget);
@@ -59,7 +82,13 @@ void main() {
 }
 
 class LastEdit extends StatelessWidget {
-  const LastEdit({Key? key}) : super(key: key);
+  LastEdit({Key? key, DateTime? now, DateTime? lastEdit})
+      : now = now ?? DateTime.now(),
+        lastEdit = lastEdit ?? DateTime(1900),
+        super(key: key);
+
+  final DateTime now;
+  final DateTime lastEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +127,7 @@ class Memo extends StatelessWidget {
       BackArrowButton(() {}),
       const TextField(maxLines: 1, textInputAction: TextInputAction.next),
       const TextField(maxLines: null, textInputAction: TextInputAction.newline),
-      const LastEdit()
+      LastEdit()
     ]);
   }
 }
