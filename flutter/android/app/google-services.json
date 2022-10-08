@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "532014881582",
+    "project_id": "com-iori-bahamas-dev",
+    "storage_bucket": "com-iori-bahamas-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532014881582:android:bdf879437249ab9bb778bf",
+        "android_client_info": {
+          "package_name": "com.iori.bahamas.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532014881582-64l04v324aa12psj6h7rhnjni0sorcje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgRDxHPYViUwuAxxkA_TrX3Vx4v3vHt5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532014881582-64l04v324aa12psj6h7rhnjni0sorcje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
