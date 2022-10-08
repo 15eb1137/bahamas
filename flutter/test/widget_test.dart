@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 
 // import 'test_data.dart';
 
@@ -42,19 +43,23 @@ void main() {
     final lastEditDateTimeToday = DateTime(2022, 4, 1, 0, 0, 0);
     await tester
         .pumpWidget(wrap(LastEdit(now: now, lastEdit: lastEditDateTimeToday)));
-    expect(find.text('編集時刻: 0:00'), findsOneWidget);
+    expect(find.text('編集時刻: 00:00'), findsOneWidget);
+
     final lastEditDateTimeYesterday = DateTime(2022, 3, 31, 23, 59, 59);
     await tester.pumpWidget(
         wrap(LastEdit(now: now, lastEdit: lastEditDateTimeYesterday)));
     expect(find.text('編集時刻: 昨日23:59'), findsOneWidget);
+
     final lastEditDateTimeTwoDaysAgo = DateTime(2022, 3, 30, 23, 59, 59);
     await tester.pumpWidget(
         wrap(LastEdit(now: now, lastEdit: lastEditDateTimeTwoDaysAgo)));
     expect(find.text('編集日時: 3月30日'), findsOneWidget);
+
     final lastEditDateTimeThisYear = DateTime(2022, 1, 1, 0, 0, 0);
     await tester.pumpWidget(
         wrap(LastEdit(now: now, lastEdit: lastEditDateTimeThisYear)));
     expect(find.text('編集日時: 1月1日'), findsOneWidget);
+
     final lastEditDateTimeLastYear = DateTime(2021, 12, 31, 23, 59, 59);
     await tester.pumpWidget(
         wrap(LastEdit(now: now, lastEdit: lastEditDateTimeLastYear)));
@@ -87,12 +92,31 @@ class LastEdit extends StatelessWidget {
         lastEdit = lastEdit ?? DateTime(1900),
         super(key: key);
 
-  final DateTime now;
+  final DateTime now; // TODO: Providerにする
   final DateTime lastEdit;
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox();
+    final dateOnlyNow = DateTime(now.year, now.month, now.day);
+    final dateOnlyLastEdit =
+        DateTime(lastEdit.year, lastEdit.month, lastEdit.day);
+    final bool isToday = dateOnlyNow.isAtSameMomentAs(dateOnlyLastEdit);
+    final bool isYesterday = dateOnlyNow
+        .subtract(const Duration(days: 1))
+        .isAtSameMomentAs(dateOnlyLastEdit);
+    final bool editedInThisYear = lastEdit.year == now.year;
+    String _text;
+
+    if (isToday) {
+      _text = DateFormat.Hm().format(lastEdit);
+    } else if (isYesterday) {
+      _text = '昨日${DateFormat.Hm().format(lastEdit)}';
+    } else if (!editedInThisYear) {
+      _text = DateFormat('yyyy年M月d日').format(lastEdit);
+    } else {
+      _text = DateFormat('M月d日').format(lastEdit);
+    }
+    return Text('編集${isToday || isYesterday ? '時刻' : '日時'}: $_text');
   }
 }
 
