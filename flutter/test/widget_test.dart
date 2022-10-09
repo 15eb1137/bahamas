@@ -83,6 +83,7 @@ void main() {
             widget.textInputAction == TextInputAction.newline),
         findsOneWidget);
     expect(find.byType(LastEdit), findsOneWidget);
+    expect(find.byType(MemoMenuButton), findsOneWidget);
   });
 }
 
@@ -151,7 +152,7 @@ class Memo extends StatelessWidget {
       BackArrowButton(() {}),
       const TextField(maxLines: 1, textInputAction: TextInputAction.next),
       const TextField(maxLines: null, textInputAction: TextInputAction.newline),
-      LastEdit()
+      Row(children: [LastEdit(), const MemoMenuButton()]),
     ]);
   }
 }
