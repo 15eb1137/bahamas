@@ -148,12 +148,15 @@ class Memo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      BackArrowButton(() {}),
-      const TextField(maxLines: 1, textInputAction: TextInputAction.next),
-      const TextField(maxLines: null, textInputAction: TextInputAction.newline),
-      Row(children: [LastEdit(), const MemoMenuButton()]),
-    ]);
+    return Scaffold(
+        appBar: AppBar(),
+        body: Column(children: [
+          BackArrowButton(() {}),
+          const TextField(maxLines: 1, textInputAction: TextInputAction.next),
+          const TextField(
+              maxLines: null, textInputAction: TextInputAction.newline),
+          Row(children: [LastEdit(), const MemoMenuButton()]),
+        ]));
   }
 }
 
