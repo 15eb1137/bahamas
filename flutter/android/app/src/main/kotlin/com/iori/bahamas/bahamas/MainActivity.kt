@@ -1,4 +1,4 @@
-package com.iori.bahamas.bahamas
+package com.iori.bahamas
 
 import io.flutter.embedding.android.FlutterActivity
 
