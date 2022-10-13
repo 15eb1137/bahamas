@@ -13,7 +13,10 @@ final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
     router: GoRouter(
       initialLocation: '/memo',
       routes: [
-        GoRoute(path: '/memo', builder: (context, state) => Memo(lastEdit: DateTime.now())), // TODO: lastEditはデータから呼び出したい
+        GoRoute(
+            path: '/memo',
+            builder: (context, state) =>
+                Memo(lastEdit: DateTime.now())), // TODO: lastEditはデータから呼び出したい
       ],
     ),
     // sharedPreferences: SharedPreferences.getInstance(),
@@ -155,7 +158,7 @@ class Memo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO: ユニークなテーマ
+        // TODO: ユニークなテーマ
         backgroundColor: Colors.black, // TODO: Themeからの呼び出し
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -176,7 +179,8 @@ class Memo extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 48,
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 8),
-                    child: const TextField( // TODO: TextController
+                    child: const TextField(
+                        // TODO: TextController
                         cursorColor: Colors.white,
                         style: TextStyle(fontSize: 24, color: Colors.white),
                         maxLines: 1,
