@@ -1,6 +1,6 @@
+import 'package:bahamas/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:intl/intl.dart';
 
 // import 'test_data.dart';
 
@@ -85,90 +85,6 @@ void main() {
     expect(find.byType(LastEdit), findsOneWidget);
     expect(find.byType(MemoMenuButton), findsOneWidget);
   });
-}
-
-class LastEdit extends StatelessWidget {
-  LastEdit({Key? key, DateTime? now, DateTime? lastEdit})
-      : now = now ?? DateTime.now(),
-        lastEdit = lastEdit ?? DateTime(1900),
-        super(key: key);
-
-  final DateTime now; // TODO: Providerにする
-  final DateTime lastEdit;
-
-  @override
-  Widget build(BuildContext context) {
-    final dateOnlyNow = DateTime(now.year, now.month, now.day);
-    final dateOnlyLastEdit =
-        DateTime(lastEdit.year, lastEdit.month, lastEdit.day);
-    final bool isToday = dateOnlyNow.isAtSameMomentAs(dateOnlyLastEdit);
-    final bool isYesterday = dateOnlyNow
-        .subtract(const Duration(days: 1))
-        .isAtSameMomentAs(dateOnlyLastEdit);
-    final bool editedInThisYear = lastEdit.year == now.year;
-    String _text;
-
-    if (isToday) {
-      _text = DateFormat.Hm().format(lastEdit);
-    } else if (isYesterday) {
-      _text = '昨日${DateFormat.Hm().format(lastEdit)}';
-    } else if (!editedInThisYear) {
-      _text = DateFormat('yyyy年M月d日').format(lastEdit);
-    } else {
-      _text = DateFormat('M月d日').format(lastEdit);
-    }
-    return Text('編集${isToday || isYesterday ? '時刻' : '日時'}: $_text');
-  }
-}
-
-class ModalBottomSheet extends StatelessWidget {
-  const ModalBottomSheet({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox();
-  }
-}
-
-class MemoMenuButton extends StatelessWidget {
-  const MemoMenuButton({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          showModalBottomSheet<void>(
-              context: context, builder: (context) => const ModalBottomSheet());
-        },
-        icon: const Icon(Icons.more_vert));
-  }
-}
-
-class Memo extends StatelessWidget {
-  const Memo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: Column(children: [
-          BackArrowButton(() {}),
-          const TextField(maxLines: 1, textInputAction: TextInputAction.next),
-          const TextField(
-              maxLines: null, textInputAction: TextInputAction.newline),
-          Row(children: [LastEdit(), const MemoMenuButton()]),
-        ]));
-  }
-}
-
-class BackArrowButton extends StatelessWidget {
-  const BackArrowButton(this.onPressed, {Key? key}) : super(key: key);
-
-  final void Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed, icon: const Icon(Icons.arrow_back));
-  }
 }
 
 Widget wrap(Widget child) {
