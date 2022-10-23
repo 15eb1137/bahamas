@@ -124,7 +124,7 @@ class LastEdit extends StatelessWidget {
       _text = DateFormat('M月d日').format(lastEdit);
     }
     return Text('編集${isToday || isYesterday ? '時刻' : '日時'}: $_text',
-        style: const TextStyle(color: Colors.white));
+        style: const TextStyle(color: Colors.black));
   }
 }
 
@@ -146,7 +146,7 @@ class MemoMenuButton extends StatelessWidget {
           showModalBottomSheet<void>(
               context: context, builder: (context) => const ModalBottomSheet());
         },
-        icon: const Icon(Icons.more_vert, color: Colors.white));
+        icon: const Icon(Icons.more_vert, color: Colors.black));
   }
 }
 
@@ -159,11 +159,11 @@ class Memo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         // TODO: ユニークなテーマ
-        backgroundColor: Colors.black, // TODO: Themeからの呼び出し
+        backgroundColor: Colors.white, // TODO: Themeからの呼び出し
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
             elevation: 0,
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             leading: BackArrowButton(() {})),
         body: Builder(builder: ((context) {
           final double textFieldHeight = MediaQuery.of(context).size.height -
@@ -181,27 +181,27 @@ class Memo extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 8),
                     child: const TextField(
                         // TODO: TextController
-                        cursorColor: Colors.white,
-                        style: TextStyle(fontSize: 24, color: Colors.white),
+                        cursorColor: Colors.black,
+                        style: TextStyle(fontSize: 24, color: Colors.black),
                         maxLines: 1,
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration.collapsed(
-                            hintText: 'タイトル',
-                            hintStyle: TextStyle(color: Colors.white))))),
+                            hintText: '題名',
+                            hintStyle: TextStyle(color: Colors.black))))),
             SizedBox(
                 width: MediaQuery.of(context).size.width - 48,
                 child: SizedBox(
                     height: textFieldHeight,
                     child: const TextField(
-                        cursorColor: Colors.white,
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        cursorColor: Colors.black,
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         textInputAction: TextInputAction.newline,
                         expands: true,
                         decoration: InputDecoration.collapsed(
-                            hintText: 'メモ',
-                            hintStyle: TextStyle(color: Colors.white))))),
+                            hintText: '内容',
+                            hintStyle: TextStyle(color: Colors.black))))),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               const SizedBox(),
               LastEdit(lastEdit: lastEdit), // TODO: 中央に配置したい
@@ -219,6 +219,6 @@ class BackArrowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed, icon: const Icon(Icons.arrow_back));
+    return IconButton(onPressed: onPressed, icon: const Icon(Icons.arrow_back, color: Colors.black));
   }
 }
