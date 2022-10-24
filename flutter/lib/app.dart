@@ -168,9 +168,7 @@ class MemoMenuButton extends StatelessWidget {
   }
 }
 
-class MemoModel {
-  
-}
+class MemoModel {}
 
 class Memo extends ConsumerWidget {
   Memo({Key? key, this.lastEdit, String? memoId})
