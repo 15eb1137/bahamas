@@ -66,7 +66,7 @@ void main() {
     expect(find.text('編集日時: 2021年12月31日'), findsOneWidget);
   });
   testWidgets('Memo test', (tester) async {
-    await tester.pumpWidget(wrap(const Memo()));
+    await tester.pumpWidget(wrap(Memo()));
     expect(find.byType(BackArrowButton), findsOneWidget);
     expect(find.byType(TextField), findsNWidgets(2));
     expect(
