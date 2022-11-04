@@ -1,5 +1,6 @@
 import 'package:bahamas/app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // import 'test_data.dart';
@@ -88,7 +89,7 @@ void main() {
 }
 
 Widget wrap(Widget child) {
-  return MaterialApp(home: Material(child: child));
+  return MaterialApp(home: Material(child: ProviderScope(child: child)));
 }
 
 class MockCallBack {
