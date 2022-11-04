@@ -4,40 +4,42 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 part 'app.freezed.dart';
 
-final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
-    AppModelState>((ref) => AppModelStateNotifier()
-  ..init(
-    router: GoRouter(
-      initialLocation: '/memo',
-      routes: [
-        GoRoute(
-            path: '/memo',
-            builder: (context, state) =>
-                Memo(lastEdit: DateTime.now())), // TODO: lastEditはデータから呼び出したい
-      ],
-    ),
-    // sharedPreferences: SharedPreferences.getInstance(),
-    // inAppReview: InAppReview.instance,
-    // analytics: FirebaseAnalytics.instance
-  ));
+final appModelProvider =
+    StateNotifierProvider<AppModelStateNotifier, AppModelState>(
+        (ref) => AppModelStateNotifier()
+          ..init(
+            router: GoRouter(
+              initialLocation: '/memo',
+              routes: [
+                GoRoute(
+                    path: '/memo',
+                    builder: (context, state) => Memo(
+                        lastEdit: DateTime.now(),
+                        memoId: 'testId')), // TODO: lastEditはデータから呼び出したい
+              ],
+            ),
+            sharedPreferences: SharedPreferences.getInstance(),
+            // inAppReview: InAppReview.instance,
+            // analytics: FirebaseAnalytics.instance
+          ));
 
 class AppModelStateNotifier extends StateNotifier<AppModelState> {
-  AppModelStateNotifier() : super(const AppModelState(null
-            // , null, null, null
-            ));
+  AppModelStateNotifier() : super(const AppModelState(null, null));
 
   Future<void> init({
     GoRouter? router,
-    // Future<SharedPreferences>? sharedPreferences,
+    Future<SharedPreferences>? sharedPreferences,
     // InAppReview? inAppReview,
     // FirebaseAnalytics? analytics
   }) async =>
       state = state.copyWith(
         router: router,
-        // sharedPreferences: await sharedPreferences,
+        sharedPreferences: await sharedPreferences,
         // inAppReview: inAppReview,
         // analytics: analytics
       );
@@ -54,6 +56,22 @@ class AppModelStateNotifier extends StateNotifier<AppModelState> {
   //   }
   // }
 
+  void setMemoText(String memoId, String text) {
+    final sharedPreferences = state.sharedPreferences;
+    if (sharedPreferences != null) {
+      sharedPreferences.setString(memoId, text);
+    }
+  }
+
+  String? getMemoText(String memoId) {
+    final sharedPreferences = state.sharedPreferences;
+    if (sharedPreferences != null) {
+      return sharedPreferences.getString(memoId);
+    } else {
+      return null;
+    }
+  }
+
   // Future<void> sendAnalyticsEvent(
   //     String eventName, Map<String, dynamic> params) async {
   //   final analytics = state.analytics;
@@ -67,7 +85,7 @@ class AppModelStateNotifier extends StateNotifier<AppModelState> {
 abstract class AppModelState with _$AppModelState {
   const factory AppModelState(
     GoRouter? router,
-    // SharedPreferences? sharedPreferences,
+    SharedPreferences? sharedPreferences,
     // InAppReview? inAppReview,
     // FirebaseAnalytics? analytics
   ) = _AppModelState;
@@ -124,7 +142,7 @@ class LastEdit extends StatelessWidget {
       _text = DateFormat('M月d日').format(lastEdit);
     }
     return Text('編集${isToday || isYesterday ? '時刻' : '日時'}: $_text',
-        style: const TextStyle(color: Colors.white));
+        style: const TextStyle(color: Colors.black));
   }
 }
 
@@ -146,24 +164,32 @@ class MemoMenuButton extends StatelessWidget {
           showModalBottomSheet<void>(
               context: context, builder: (context) => const ModalBottomSheet());
         },
-        icon: const Icon(Icons.more_vert, color: Colors.white));
+        icon: const Icon(Icons.more_vert, color: Colors.black));
   }
 }
 
-class Memo extends StatelessWidget {
-  const Memo({Key? key, this.lastEdit}) : super(key: key);
+class MemoModel {}
 
+class Memo extends ConsumerWidget {
+  Memo({Key? key, this.lastEdit, String? memoId})
+      : memoId = memoId ?? const Uuid().v4(),
+        super(key: key);
+
+  final String memoId;
   final DateTime? lastEdit;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (kDebugMode) {
+      print('Memo ID: $memoId');
+    }
     return Scaffold(
         // TODO: ユニークなテーマ
-        backgroundColor: Colors.black, // TODO: Themeからの呼び出し
+        backgroundColor: Colors.white, // TODO: Themeからの呼び出し
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
             elevation: 0,
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             leading: BackArrowButton(() {})),
         body: Builder(builder: ((context) {
           final double textFieldHeight = MediaQuery.of(context).size.height -
@@ -179,29 +205,24 @@ class Memo extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 48,
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(0, 24, 0, 8),
-                    child: const TextField(
-                        // TODO: TextController
-                        cursorColor: Colors.white,
-                        style: TextStyle(fontSize: 24, color: Colors.white),
+                    child: TextField(
+                        onChanged: (value) {
+                          if (kDebugMode) {
+                            print('save title: $value');
+                          }
+                        },
+                        cursorColor: Colors.black,
+                        style:
+                            const TextStyle(fontSize: 24, color: Colors.black),
                         maxLines: 1,
                         textInputAction: TextInputAction.next,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'タイトル',
-                            hintStyle: TextStyle(color: Colors.white))))),
+                        decoration: const InputDecoration.collapsed(
+                            hintText: '題名',
+                            hintStyle: TextStyle(color: Colors.black))))),
             SizedBox(
                 width: MediaQuery.of(context).size.width - 48,
                 child: SizedBox(
-                    height: textFieldHeight,
-                    child: const TextField(
-                        cursorColor: Colors.white,
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        textInputAction: TextInputAction.newline,
-                        expands: true,
-                        decoration: InputDecoration.collapsed(
-                            hintText: 'メモ',
-                            hintStyle: TextStyle(color: Colors.white))))),
+                    height: textFieldHeight, child: MemoTextField(memoId))),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               const SizedBox(),
               LastEdit(lastEdit: lastEdit), // TODO: 中央に配置したい
@@ -219,6 +240,60 @@ class BackArrowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed, icon: const Icon(Icons.arrow_back));
+    return IconButton(
+        onPressed: onPressed,
+        icon: const Icon(Icons.arrow_back, color: Colors.black));
+  }
+}
+
+class MemoTextField extends ConsumerStatefulWidget {
+  const MemoTextField(this.memoId, {Key? key}) : super(key: key);
+
+  final String memoId;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _MemoTextField();
+}
+
+class _MemoTextField extends ConsumerState<MemoTextField> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    final savedText =
+        ref.read(appModelProvider.notifier).getMemoText(widget.memoId);
+    _controller = TextEditingController(text: savedText);
+    if (kDebugMode) {
+      print('Memo ID: ${widget.memoId}, Saved Text: $savedText');
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+        controller: _controller,
+        onChanged: (value) {
+          if (kDebugMode) {
+            print('Memo Id: ${widget.memoId}, Value: $value');
+          }
+          ref
+              .watch(appModelProvider.notifier)
+              .setMemoText(widget.memoId, value);
+        },
+        cursorColor: Colors.black,
+        style: const TextStyle(fontSize: 16, color: Colors.black),
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
+        textInputAction: TextInputAction.newline,
+        expands: true,
+        decoration: const InputDecoration.collapsed(
+            hintText: '内容', hintStyle: TextStyle(color: Colors.black)));
   }
 }

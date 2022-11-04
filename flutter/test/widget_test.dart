@@ -1,5 +1,6 @@
 import 'package:bahamas/app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // import 'test_data.dart';
@@ -66,7 +67,7 @@ void main() {
     expect(find.text('編集日時: 2021年12月31日'), findsOneWidget);
   });
   testWidgets('Memo test', (tester) async {
-    await tester.pumpWidget(wrap(const Memo()));
+    await tester.pumpWidget(wrap(Memo()));
     expect(find.byType(BackArrowButton), findsOneWidget);
     expect(find.byType(TextField), findsNWidgets(2));
     expect(
@@ -88,7 +89,7 @@ void main() {
 }
 
 Widget wrap(Widget child) {
-  return MaterialApp(home: Material(child: child));
+  return MaterialApp(home: Material(child: ProviderScope(child: child)));
 }
 
 class MockCallBack {

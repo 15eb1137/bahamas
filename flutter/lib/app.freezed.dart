@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AppModelState {
   GoRouter? get router => throw _privateConstructorUsedError;
+  SharedPreferences? get sharedPreferences =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppModelStateCopyWith<AppModelState> get copyWith =>
@@ -28,7 +30,7 @@ abstract class $AppModelStateCopyWith<$Res> {
   factory $AppModelStateCopyWith(
           AppModelState value, $Res Function(AppModelState) then) =
       _$AppModelStateCopyWithImpl<$Res>;
-  $Res call({GoRouter? router});
+  $Res call({GoRouter? router, SharedPreferences? sharedPreferences});
 }
 
 /// @nodoc
@@ -43,12 +45,17 @@ class _$AppModelStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? router = freezed,
+    Object? sharedPreferences = freezed,
   }) {
     return _then(_value.copyWith(
       router: router == freezed
           ? _value.router
           : router // ignore: cast_nullable_to_non_nullable
               as GoRouter?,
+      sharedPreferences: sharedPreferences == freezed
+          ? _value.sharedPreferences
+          : sharedPreferences // ignore: cast_nullable_to_non_nullable
+              as SharedPreferences?,
     ));
   }
 }
@@ -60,7 +67,7 @@ abstract class _$$_AppModelStateCopyWith<$Res>
           _$_AppModelState value, $Res Function(_$_AppModelState) then) =
       __$$_AppModelStateCopyWithImpl<$Res>;
   @override
-  $Res call({GoRouter? router});
+  $Res call({GoRouter? router, SharedPreferences? sharedPreferences});
 }
 
 /// @nodoc
@@ -77,12 +84,17 @@ class __$$_AppModelStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? router = freezed,
+    Object? sharedPreferences = freezed,
   }) {
     return _then(_$_AppModelState(
       router == freezed
           ? _value.router
           : router // ignore: cast_nullable_to_non_nullable
               as GoRouter?,
+      sharedPreferences == freezed
+          ? _value.sharedPreferences
+          : sharedPreferences // ignore: cast_nullable_to_non_nullable
+              as SharedPreferences?,
     ));
   }
 }
@@ -90,14 +102,16 @@ class __$$_AppModelStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AppModelState with DiagnosticableTreeMixin implements _AppModelState {
-  const _$_AppModelState(this.router);
+  const _$_AppModelState(this.router, this.sharedPreferences);
 
   @override
   final GoRouter? router;
+  @override
+  final SharedPreferences? sharedPreferences;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppModelState(router: $router)';
+    return 'AppModelState(router: $router, sharedPreferences: $sharedPreferences)';
   }
 
   @override
@@ -105,7 +119,8 @@ class _$_AppModelState with DiagnosticableTreeMixin implements _AppModelState {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'AppModelState'))
-      ..add(DiagnosticsProperty('router', router));
+      ..add(DiagnosticsProperty('router', router))
+      ..add(DiagnosticsProperty('sharedPreferences', sharedPreferences));
   }
 
   @override
@@ -113,12 +128,16 @@ class _$_AppModelState with DiagnosticableTreeMixin implements _AppModelState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppModelState &&
-            const DeepCollectionEquality().equals(other.router, router));
+            const DeepCollectionEquality().equals(other.router, router) &&
+            const DeepCollectionEquality()
+                .equals(other.sharedPreferences, sharedPreferences));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(router));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(router),
+      const DeepCollectionEquality().hash(sharedPreferences));
 
   @JsonKey(ignore: true)
   @override
@@ -127,10 +146,14 @@ class _$_AppModelState with DiagnosticableTreeMixin implements _AppModelState {
 }
 
 abstract class _AppModelState implements AppModelState {
-  const factory _AppModelState(final GoRouter? router) = _$_AppModelState;
+  const factory _AppModelState(
+          final GoRouter? router, final SharedPreferences? sharedPreferences) =
+      _$_AppModelState;
 
   @override
   GoRouter? get router;
+  @override
+  SharedPreferences? get sharedPreferences;
   @override
   @JsonKey(ignore: true)
   _$$_AppModelStateCopyWith<_$_AppModelState> get copyWith =>
