@@ -102,7 +102,7 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(appModelProvider.select((model) => model.router))!;
     return MaterialApp.router(
-      title: '',
+      title: '検索できるメモ帳',
       theme:
           ThemeData(primarySwatch: Colors.green, brightness: Brightness.light),
       darkTheme:
