@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  FLUTTER_VERSION: '3.0.1'
+  FLUTTER_VERSION: '3.3.10'
   WORKING_FLUTTER_DIRECTORY: 'flutter'
   GIT_EMAIL: '15eb1137@gmail.com'
   GIT_NAME: 'iori tobeta'
@@ -19,10 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'stable'

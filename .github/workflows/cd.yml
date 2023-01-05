@@ -4,17 +4,38 @@ on:
     types: [published]
 
 env:
-  FLUTTER_VERSION: '3.0.1'
+  FLUTTER_VERSION: '3.3.10'
   WORKING_FLUTTER_DIRECTORY: 'flutter'
   PACKAGE_NAME: 'com.iori.bahamas'
 
 jobs:
+  add_release_git_tag:
+    name: Add Release GitTag
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.base_ref }}
+      - name: yq current version
+        id: yq-current-version
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '.version' "${{ env.WORKING_FLUTTER_DIRECTORY }}/pubspec.yaml"
+      - run: |
+          echo "${{ steps.yq-current-version.outputs.result }}_release" > TAG_NAME
+          echo "${{ steps.yq-current-version.outputs.result }}_release" > TAG_MESSAGE
+          git -c user.name="${{ env.GIT_NAME }}" -c user.email="${{ env.GIT_EMAIL }}" tag -a $(cat TAG_NAME) -m $(cat TAG_MESSAGE)
+          git push origin $(cat TAG_NAME)
   deploy_android:
     name: Upload to GooglePlayStore
+    needs: [add_release_git_tag]
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: main
       - name: Update WhatsNew
@@ -29,7 +50,7 @@ jobs:
           name: appbundle
           path: flutter/build/app/outputs/bundle/release
           workflow: cibuild.yml
-      - uses: r0adkll/upload-google-play@v1.0.17
+      - uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_KEY_JSON_PLAIN }}
           packageName: ${{ env.PACKAGE_NAME }}
@@ -39,13 +60,13 @@ jobs:
           whatsNewDirectory: distribution/whatsnew
   build_version_increment:
     name: Flutter Build Version Increment
-    needs: [deploy_android]
+    needs: [add_release_git_tag, deploy_android]
     permissions:
       contents: write
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps: 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: main
       - name: yq current version
@@ -58,15 +79,15 @@ jobs:
         run: |
           vc=`echo ${{ steps.yq-current-version.outputs.result }} | cut -d "+" -f 1`
           bv=`echo ${{ steps.yq-current-version.outputs.result }} | cut -d "+" -f 2`
-          echo "::set-output name=current-version-code::${vc}"
-          echo "::set-output name=current-build-version::${bv}"
+          echo "current-version-code=${vc}" >> $GITHUB_OUTPUT
+          echo "current-build-version=${bv}" >> $GITHUB_OUTPUT
       - name: Incremented version
         id: incremented-version
         run: |
           vc=`echo ${{ steps.split-version-string.outputs.current-version-code }}`
           bv=`echo $((${{ steps.split-version-string.outputs.current-build-version }} + 1))`
-          echo "::set-output name=version-code::${vc}"
-          echo "::set-output name=build-version::${bv}"
+          echo "version-code=${vc}" >> $GITHUB_OUTPUT
+          echo "build-version=${bv}" >> $GITHUB_OUTPUT
       - uses: mikefarah/yq@master
         with:
           cmd: NEXT_VERSIONS=${{ steps.incremented-version.outputs.version-code }}+${{ steps.incremented-version.outputs.build-version }} yq eval '.version = env(NEXT_VERSIONS)' -i ${{ env.WORKING_FLUTTER_DIRECTORY }}/pubspec.yaml
