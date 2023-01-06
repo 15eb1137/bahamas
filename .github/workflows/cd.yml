@@ -7,6 +7,8 @@ env:
   FLUTTER_VERSION: '3.3.10'
   WORKING_FLUTTER_DIRECTORY: 'flutter'
   PACKAGE_NAME: 'com.iori.bahamas'
+  GIT_EMAIL: '15eb1137@gmail.com'
+  GIT_NAME: 'iori tobeta'
 
 jobs:
   add_release_git_tag:
