@@ -1,5 +1,8 @@
+import 'package:bahamas/presentation/page/sticky_single_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
@@ -15,8 +18,12 @@ final appModelProvider =
         (ref) => AppModelStateNotifier()
           ..init(
             router: GoRouter(
-              initialLocation: '/shelf',
+              initialLocation: '/sticky',
               routes: [
+                GoRoute(
+                    path: '/sticky',
+                    builder: ((context, state) =>
+                        const StickySinglePage(stickyId: 'ByIdTestId01'))),
                 GoRoute(
                     path: '/shelf',
                     builder: (context, state) => const MemoShelf(),
@@ -104,6 +111,13 @@ class App extends ConsumerWidget {
     final router = ref.watch(appModelProvider.select((model) => model.router))!;
     return MaterialApp.router(
       title: '検索できるメモ帳',
+      supportedLocales: const [Locale('ja', 'JP')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate
+      ],
       theme:
           ThemeData(primarySwatch: Colors.green, brightness: Brightness.light),
       darkTheme:
