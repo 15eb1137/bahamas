@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'value/sticky_color.dart';
 import 'value/sticky_font_size.dart';
 import 'value/sticky_id.dart';
@@ -26,6 +28,14 @@ class Sticky {
         _lastEdit = lastEdit,
         _color = color,
         _state = state;
+
+  factory Sticky.initial() => Sticky(
+      id: StickyId(''),
+      text: StickyText(''),
+      fontSize: StickyFontSize(16),
+      lastEdit: StickyLastEdit(DateTime(2020, 1, 1, 0, 0, 0)),
+      color: StickyColor(const Color(0xffff7f7f)),
+      state: const StickyState(StickyStateType.editing));
 
   StickyText get text => _text;
   StickyFontSize get fontSize => _fontSize;

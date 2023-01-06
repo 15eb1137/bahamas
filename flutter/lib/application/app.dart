@@ -1,3 +1,4 @@
+import 'package:bahamas/presentation/page/sticky_single_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,8 +16,12 @@ final appModelProvider =
         (ref) => AppModelStateNotifier()
           ..init(
             router: GoRouter(
-              initialLocation: '/shelf',
+              initialLocation: '/sticky',
               routes: [
+                GoRoute(
+                    path: '/sticky',
+                    builder: ((context, state) =>
+                        const StickySinglePage(stickyId: 'ByIdTestId01'))),
                 GoRoute(
                     path: '/shelf',
                     builder: (context, state) => const MemoShelf(),
