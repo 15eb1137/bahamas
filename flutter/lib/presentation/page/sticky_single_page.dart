@@ -12,7 +12,8 @@ class StickySinglePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
         body: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: const [StickyTextField(), StickyColorPalette()])));
   }
 }

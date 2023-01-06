@@ -25,8 +25,8 @@ class StickyTextField extends ConsumerWidget {
           width: 300),
       GestureDetector(
           behavior: HitTestBehavior.translucent,
-          child: Container(
-              color: const Color(0xffcc6666), width: 60, height: 60),
+          child:
+              Container(color: const Color(0xffcc6666), width: 60, height: 60),
           onVerticalDragUpdate: (details) {
             if (kDebugMode) {
               print('dy: ${details.delta.dy}');
