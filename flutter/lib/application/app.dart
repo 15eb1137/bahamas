@@ -5,7 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'memo.dart';
+import '../presentation/page/memo_page.dart';
+import '../presentation/widget/memo_shelf.dart';
 
 part 'app.freezed.dart';
 
