@@ -12,6 +12,7 @@ class Sticky {
   StickyLastEdit _lastEdit;
   StickyColor _color;
   StickyState _state;
+  // TODO: StickyCreatedAt
 
   Sticky(
       {required this.id,
