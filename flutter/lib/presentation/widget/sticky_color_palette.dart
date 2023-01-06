@@ -7,8 +7,7 @@ class StickyColorPalette extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Container(
               width: 20,
               decoration: const BoxDecoration(
@@ -22,6 +21,7 @@ class StickyColorPalette extends ConsumerWidget {
               decoration: const BoxDecoration(
                   color: Color(0xffffff7f), shape: BoxShape.circle))
         ]),
-        width: 100, height: 60);
+        width: 100,
+        height: 60);
   }
 }
