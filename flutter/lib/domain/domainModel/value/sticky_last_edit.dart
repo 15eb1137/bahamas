@@ -12,7 +12,8 @@ class StickyLastEdit {
 
   @override
   bool operator ==(Object other) =>
-      identical(other, this) || (other is StickyLastEdit && other.value == value);
+      identical(other, this) ||
+      (other is StickyLastEdit && other.value == value);
 
   @override
   int get hashCode => runtimeType.hashCode ^ value.hashCode;
