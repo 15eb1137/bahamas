@@ -1,7 +1,7 @@
-import 'package:bahamas/application/sticky_app_service.dart';
+import 'package:bahamas/application/sticky/sticky_app_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/domainModel/sticky.dart';
+import '../../../domain/domainModel/sticky/sticky.dart';
 
 class StickyNotifier extends StateNotifier<Sticky> {
   final StickyAppService _appService;

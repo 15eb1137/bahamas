@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../common/logger.dart';
-import '../../domain/domainModel/stickies.dart';
+import '../../../common/logger.dart';
+import '../../../domain/domainModel/sticky/stickies.dart';
 
 class StickyCollectionGrid extends ConsumerWidget {
   const StickyCollectionGrid(this.stickies, {super.key});

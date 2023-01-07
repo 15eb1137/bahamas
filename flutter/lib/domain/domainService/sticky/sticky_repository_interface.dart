@@ -1,6 +1,6 @@
-import '../domainModel/stickies.dart';
-import '../domainModel/sticky.dart';
-import '../domainModel/value/sticky_id.dart';
+import '../../domainModel/sticky/stickies.dart';
+import '../../domainModel/sticky/sticky.dart';
+import '../../domainModel/sticky/value/sticky_id.dart';
 
 // abstract?
 class StickyRepository {

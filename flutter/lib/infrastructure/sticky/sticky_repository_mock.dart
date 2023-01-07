@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import '../domain/domainModel/stickies.dart';
-import '../domain/domainModel/sticky.dart';
-import '../domain/domainModel/value/sticky_color.dart';
-import '../domain/domainModel/value/sticky_font_size.dart';
-import '../domain/domainModel/value/sticky_id.dart';
-import '../domain/domainModel/value/sticky_last_edit.dart';
-import '../domain/domainModel/value/sticky_state.dart';
-import '../domain/domainModel/value/sticky_text.dart';
-import '../domain/domainService/sticky_repository_interface.dart';
+import '../../domain/domainModel/sticky/stickies.dart';
+import '../../domain/domainModel/sticky/sticky.dart';
+import '../../domain/domainModel/sticky/value/sticky_color.dart';
+import '../../domain/domainModel/sticky/value/sticky_font_size.dart';
+import '../../domain/domainModel/sticky/value/sticky_id.dart';
+import '../../domain/domainModel/sticky/value/sticky_last_edit.dart';
+import '../../domain/domainModel/sticky/value/sticky_state.dart';
+import '../../domain/domainModel/sticky/value/sticky_text.dart';
+import '../../domain/domainService/sticky/sticky_repository_interface.dart';
 
 class StickyRepositoryMock implements StickyRepository {
   @override
