@@ -9,7 +9,6 @@ class SearchDomainSearvice {
   // : _repository = repository
   ;
 
-  @deprecated
   bool isExistId(SearchId id) {
     return false;
   }
