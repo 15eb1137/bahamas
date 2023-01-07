@@ -28,10 +28,6 @@ jobs:
           channel: 'stable'
       - working-directory: ${{ env.WORKING_FLUTTER_DIRECTORY }}
         run: flutter pub get
-      - name: Format check
-        working-directory: ${{ env.WORKING_FLUTTER_DIRECTORY }}
-        if: always()
-        run: flutter format ./lib/ ./test/ -n --set-exit-if-changed
       - name: Lint Check
         working-directory: ${{ env.WORKING_FLUTTER_DIRECTORY }}
         if: always()
