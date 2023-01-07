@@ -1,4 +1,3 @@
-import 'package:bahamas/presentation/page/sticky_single_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../presentation/page/memo_page.dart';
 import '../presentation/page/search_page.dart';
 import '../presentation/page/sticky_collection_page.dart';
+import '../presentation/page/sticky_single_page.dart';
 import '../presentation/widget/memo_shelf.dart';
 
 part 'app.freezed.dart';
