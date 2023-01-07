@@ -1,5 +1,7 @@
 import 'package:meta/meta.dart';
 
+import '../../search/value/search_condition.dart';
+
 @immutable
 class StickyText {
   final String value;
@@ -16,4 +18,7 @@ class StickyText {
 
   @override
   int get hashCode => runtimeType.hashCode ^ value.hashCode;
+
+  bool contains(SearchCondition other, [int startIndex = 0]) =>
+      value.contains(other.value, startIndex);
 }
