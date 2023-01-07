@@ -12,9 +12,12 @@ import '../../domain/domainModel/sticky/value/sticky_last_edit.dart';
 import '../../domain/domainModel/sticky/value/sticky_state.dart';
 import '../../domain/domainModel/sticky/value/sticky_text.dart';
 import '../widget/sticky/sticky_collection_grid.dart';
+import 'search_page.dart';
 
 class StickyCollectionPage extends ConsumerWidget {
-  const StickyCollectionPage({super.key});
+  final bool isResult;
+
+  const StickyCollectionPage({super.key, this.isResult = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -87,7 +90,19 @@ class StickyCollectionPage extends ConsumerWidget {
     logger.i('Here is StickyCollectionPage.');
 
     return Scaffold(
-      body: StickyCollectionGrid(dummyStickies),
+      body: Column(children: [
+        SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 80,
+            child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: ElevatedButton(
+                    onPressed: () => context.go('/search'),
+                    child: const Text('メモを検索')))),
+        Expanded(
+            child: StickyCollectionGrid(
+                isResult ? ref.read(resultStickiesProvider) : dummyStickies))
+      ]),
       floatingActionButton: FloatingActionButton(
           onPressed: () => context.go('/sticky'), child: const Icon(Icons.add)),
     );

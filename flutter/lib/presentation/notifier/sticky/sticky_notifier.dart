@@ -1,7 +1,8 @@
-import 'package:bahamas/application/sticky/sticky_app_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../application/sticky/sticky_app_service.dart';
 import '../../../domain/domainModel/sticky/sticky.dart';
+import '../../../infrastructure/sticky/sticky_repository_mock.dart';
 
 class StickyNotifier extends StateNotifier<Sticky> {
   final StickyAppService _appService;
@@ -15,3 +16,7 @@ class StickyNotifier extends StateNotifier<Sticky> {
     state = result;
   }
 }
+
+final stickyNotifierProvider = StateNotifierProvider<StickyNotifier, Sticky>(
+    (ref) => StickyNotifier(
+        appService: StickyAppService(repository: StickyRepositoryMock())));

@@ -1,4 +1,5 @@
 import '../../../common/logger.dart';
+import '../sticky/stickies.dart';
 import 'value/search_condition.dart';
 import 'value/search_created_at.dart';
 import 'value/search_id.dart';
@@ -26,6 +27,14 @@ class Search {
         _state = state,
         _createdAt = SearchCreatedAt(DateTime.now()),
         _publishedAt = publishedAt;
+
+  factory Search.initial() => Search(
+      id: SearchId('test'),
+      condition: SearchCondition(RegExp('test')),
+      result: SearchResult(Stickies(children: [])),
+      state: const SearchState(SearchStateType.editing),
+      createdAt: SearchCreatedAt(DateTime.now()),
+      publishedAt: SearchPublishedAt(null));
 
   SearchCondition get condition => _condition;
   SearchResult get result => _result;

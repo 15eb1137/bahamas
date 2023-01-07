@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../presentation/page/memo_page.dart';
+import '../presentation/page/search_page.dart';
 import '../presentation/page/sticky_collection_page.dart';
 import '../presentation/widget/memo_shelf.dart';
 
@@ -18,7 +19,7 @@ final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
     AppModelState>((ref) => AppModelStateNotifier()
   ..init(
     router: GoRouter(
-      initialLocation: '/sticky',
+      initialLocation: '/search',
       routes: [
         GoRoute(
             path: '/sticky',
@@ -27,6 +28,12 @@ final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
         GoRoute(
             path: '/stickies',
             builder: ((context, state) => const StickyCollectionPage())),
+        GoRoute(
+            path: '/stickiesResult',
+            builder: ((context, state) =>
+                const StickyCollectionPage(isResult: true))),
+        GoRoute(
+            path: '/search', builder: ((context, state) => const SearchPage())),
         GoRoute(
             path: '/shelf',
             builder: (context, state) => const MemoShelf(),
