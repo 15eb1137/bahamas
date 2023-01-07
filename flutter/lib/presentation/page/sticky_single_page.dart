@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../widget/sticky_color_palette.dart';
 import '../widget/sticky_text_field.dart';
@@ -14,6 +15,9 @@ class StickySinglePage extends ConsumerWidget {
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [StickyTextField(), StickyColorPalette()])));
+                children: const [StickyTextField(), StickyColorPalette()])),
+        floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.collections),
+            onPressed: (() => context.go('/stickies'))));
   }
 }
