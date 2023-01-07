@@ -10,7 +10,7 @@ class SearchPublishedAt {
     }
   }
 
-    @override
+  @override
   bool operator ==(Object other) =>
       identical(other, this) ||
       (other is SearchPublishedAt && other.value == value);
