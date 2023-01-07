@@ -1,4 +1,3 @@
-import 'package:bahamas/presentation/page/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +12,7 @@ import '../../domain/domainModel/sticky/value/sticky_last_edit.dart';
 import '../../domain/domainModel/sticky/value/sticky_state.dart';
 import '../../domain/domainModel/sticky/value/sticky_text.dart';
 import '../widget/sticky/sticky_collection_grid.dart';
+import 'search_page.dart';
 
 class StickyCollectionPage extends ConsumerWidget {
   final bool isResult;
@@ -90,8 +90,19 @@ class StickyCollectionPage extends ConsumerWidget {
     logger.i('Here is StickyCollectionPage.');
 
     return Scaffold(
-      body: StickyCollectionGrid(
-          isResult ? ref.read(resultStickiesProvider) : dummyStickies),
+      body: Column(children: [
+        SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 80,
+            child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: ElevatedButton(
+                    onPressed: () => context.go('/search'),
+                    child: const Text('メモを検索')))),
+        Expanded(
+            child: StickyCollectionGrid(
+                isResult ? ref.read(resultStickiesProvider) : dummyStickies))
+      ]),
       floatingActionButton: FloatingActionButton(
           onPressed: () => context.go('/sticky'), child: const Icon(Icons.add)),
     );
