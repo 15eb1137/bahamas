@@ -7,13 +7,13 @@ import 'package:go_router/go_router.dart';
 import '../../../common/logger.dart';
 import '../../../domain/domainModel/sticky/stickies.dart';
 
-class StickyCollectionGrid extends ConsumerWidget {
+class StickyCollectionGrid extends StatelessWidget {
   const StickyCollectionGrid(this.stickies, {super.key});
 
   final Stickies stickies;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return GridView.builder(
         itemCount: stickies.length,
         padding: const EdgeInsets.all(8),

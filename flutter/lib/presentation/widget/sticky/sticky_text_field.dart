@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/logger.dart';
 
-class StickyTextField extends ConsumerWidget {
+class StickyTextField extends StatelessWidget {
   const StickyTextField({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final _controller = TextEditingController(text: '');
     return Stack(alignment: Alignment.bottomLeft, children: [
       ..._backgroundStickies(),

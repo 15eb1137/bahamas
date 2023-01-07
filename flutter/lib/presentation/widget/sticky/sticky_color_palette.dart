@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StickyColorPalette extends ConsumerWidget {
+class StickyColorPalette extends StatelessWidget {
   const StickyColorPalette({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return SizedBox(
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Container(
