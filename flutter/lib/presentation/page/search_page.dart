@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors
 
-import 'package:bahamas/domain/domainModel/sticky/stickies.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../domain/domainModel/sticky/stickies.dart';
 import '../notifier/search/search_notifier.dart';
 import '../widget/search/search_conditions_form.dart';
 import '../widget/search/search_text_field_start_with.dart';
@@ -25,7 +25,7 @@ class SearchPage extends ConsumerWidget {
 
     return Scaffold(
       body: Column(children: [
-        SearchConditionsForm(
+        const SearchConditionsForm(
           chipsData: chipsData,
         ),
         ElevatedButton(
@@ -35,7 +35,7 @@ class SearchPage extends ConsumerWidget {
               ref.watch(resultStickiesProvider.notifier).state = result;
               context.go('/stickiesResult');
             },
-            child: Text('検索')),
+            child: const Text('検索')),
         SearchTextFieldStartWith(
           addStartWithChip: (text) {},
         )

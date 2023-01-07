@@ -1,6 +1,7 @@
-import 'package:bahamas/presentation/widget/search/search_badge_start_with.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'search_badge_start_with.dart';
 
 class SearchConditionsForm extends StatelessWidget {
   final List<Map<String, dynamic>> chipsData;
