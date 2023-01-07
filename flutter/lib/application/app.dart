@@ -9,36 +9,39 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../presentation/page/memo_page.dart';
+import '../presentation/page/sticky_collection_page.dart';
 import '../presentation/widget/memo_shelf.dart';
 
 part 'app.freezed.dart';
 
-final appModelProvider =
-    StateNotifierProvider<AppModelStateNotifier, AppModelState>(
-        (ref) => AppModelStateNotifier()
-          ..init(
-            router: GoRouter(
-              initialLocation: '/sticky',
-              routes: [
-                GoRoute(
-                    path: '/sticky',
-                    builder: ((context, state) =>
-                        const StickySinglePage(stickyId: 'ByIdTestId01'))),
-                GoRoute(
-                    path: '/shelf',
-                    builder: (context, state) => const MemoShelf(),
-                    routes: [
-                      GoRoute(
-                          path: 'memo',
-                          builder: (context, state) =>
-                              Memo(lastEdit: DateTime.now(), memoId: 'testId'))
-                    ]), // TODO: lastEditはデータから呼び出したい
-              ],
-            ),
-            sharedPreferences: SharedPreferences.getInstance(),
-            // inAppReview: InAppReview.instance,
-            // analytics: FirebaseAnalytics.instance
-          ));
+final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
+    AppModelState>((ref) => AppModelStateNotifier()
+  ..init(
+    router: GoRouter(
+      initialLocation: '/sticky',
+      routes: [
+        GoRoute(
+            path: '/sticky',
+            builder: ((context, state) =>
+                const StickySinglePage(stickyId: 'ByIdTestId01'))),
+        GoRoute(
+            path: '/stickies',
+            builder: ((context, state) => const StickyCollectionPage())),
+        GoRoute(
+            path: '/shelf',
+            builder: (context, state) => const MemoShelf(),
+            routes: [
+              GoRoute(
+                  path: 'memo',
+                  builder: (context, state) =>
+                      Memo(lastEdit: DateTime.now(), memoId: 'testId'))
+            ]), // TODO: lastEditはデータから呼び出したい
+      ],
+    ),
+    sharedPreferences: SharedPreferences.getInstance(),
+    // inAppReview: InAppReview.instance,
+    // analytics: FirebaseAnalytics.instance
+  ));
 
 class AppModelStateNotifier extends StateNotifier<AppModelState> {
   AppModelStateNotifier() : super(const AppModelState(null, null));
