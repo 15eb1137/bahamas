@@ -1,3 +1,4 @@
+import 'package:bahamas/presentation/page/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +15,9 @@ import '../../domain/domainModel/sticky/value/sticky_text.dart';
 import '../widget/sticky/sticky_collection_grid.dart';
 
 class StickyCollectionPage extends ConsumerWidget {
-  const StickyCollectionPage({super.key});
+  final bool isResult;
+
+  const StickyCollectionPage({super.key, this.isResult = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -87,7 +90,8 @@ class StickyCollectionPage extends ConsumerWidget {
     logger.i('Here is StickyCollectionPage.');
 
     return Scaffold(
-      body: StickyCollectionGrid(dummyStickies),
+      body: StickyCollectionGrid(
+          isResult ? ref.read(resultStickiesProvider) : dummyStickies),
       floatingActionButton: FloatingActionButton(
           onPressed: () => context.go('/sticky'), child: const Icon(Icons.add)),
     );

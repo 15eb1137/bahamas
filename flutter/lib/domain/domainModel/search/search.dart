@@ -29,8 +29,8 @@ class Search {
         _publishedAt = publishedAt;
 
   factory Search.initial() => Search(
-      id: SearchId(''),
-      condition: SearchCondition(RegExp('')),
+      id: SearchId('test'),
+      condition: SearchCondition(RegExp('test')),
       result: SearchResult(Stickies(children: [])),
       state: const SearchState(SearchStateType.editing),
       createdAt: SearchCreatedAt(DateTime.now()),

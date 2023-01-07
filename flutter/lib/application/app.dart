@@ -29,6 +29,10 @@ final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
             path: '/stickies',
             builder: ((context, state) => const StickyCollectionPage())),
         GoRoute(
+            path: '/stickiesResult',
+            builder: ((context, state) =>
+                const StickyCollectionPage(isResult: true))),
+        GoRoute(
             path: '/search', builder: ((context, state) => const SearchPage())),
         GoRoute(
             path: '/shelf',
