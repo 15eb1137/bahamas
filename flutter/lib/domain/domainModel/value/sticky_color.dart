@@ -7,8 +7,8 @@ class StickyColor {
   final Color value;
 
   StickyColor(this.value) {
-    if (value != const Color(0xffff7f7f) ||
-        value != const Color(0xff7fbfff) ||
+    if (value != const Color(0xffff7f7f) &&
+        value != const Color(0xff7fbfff) &&
         value != const Color(0xffffff7f)) {
       throw Exception();
     }
