@@ -1,6 +1,10 @@
-import 'package:bahamas/presentation/widget/search/search_badge.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../widget/search/search_badge_start_with.dart';
+import '../widget/search/search_text_field_start_with.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});
@@ -8,11 +12,13 @@ class SearchPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Column(children: const [
-        SearchBadgeStartWith(size: 50),
-        SearchBadgeEndWith(size: 50),
-        SearchBadgeInclude(size: 50),
-        SearchBadgeExclude(size: 50)
+      body: Column(children: [
+        SearchBadgeStartWith(
+          text: '毎日メモ',
+        ),
+        SearchTextFieldStartWith(
+          addStartWithChip: (text) {},
+        )
       ]),
     );
   }
