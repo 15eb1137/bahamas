@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import '../domain/domainModel/stickies.dart';
-import '../domain/domainModel/sticky.dart';
-import '../domain/domainModel/value/sticky_id.dart';
-import '../domain/domainService/sticky_repository_interface.dart';
+import '../../domain/domainModel/sticky/stickies.dart';
+import '../../domain/domainModel/sticky/sticky.dart';
+import '../../domain/domainModel/sticky/value/sticky_id.dart';
+import '../../domain/domainService/sticky/sticky_repository.dart';
 
 class StickyAppService {
   final StickyRepository _repository;

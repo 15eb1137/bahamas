@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../common/logger.dart';
+import '../../../common/logger.dart';
 
 class StickyTextField extends ConsumerWidget {
   const StickyTextField({super.key});

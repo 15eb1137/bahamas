@@ -1,3 +1,0 @@
-class StickyDomainService {
-  StickyDomainService();
-}

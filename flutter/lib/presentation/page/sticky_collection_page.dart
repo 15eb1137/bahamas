@@ -3,15 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/logger.dart';
-import '../../domain/domainModel/stickies.dart';
-import '../../domain/domainModel/sticky.dart';
-import '../../domain/domainModel/value/sticky_color.dart';
-import '../../domain/domainModel/value/sticky_font_size.dart';
-import '../../domain/domainModel/value/sticky_id.dart';
-import '../../domain/domainModel/value/sticky_last_edit.dart';
-import '../../domain/domainModel/value/sticky_state.dart';
-import '../../domain/domainModel/value/sticky_text.dart';
-import '../widget/sticky_collection_grid.dart';
+import '../../domain/domainModel/sticky/stickies.dart';
+import '../../domain/domainModel/sticky/sticky.dart';
+import '../../domain/domainModel/sticky/value/sticky_color.dart';
+import '../../domain/domainModel/sticky/value/sticky_font_size.dart';
+import '../../domain/domainModel/sticky/value/sticky_id.dart';
+import '../../domain/domainModel/sticky/value/sticky_last_edit.dart';
+import '../../domain/domainModel/sticky/value/sticky_state.dart';
+import '../../domain/domainModel/sticky/value/sticky_text.dart';
+import '../widget/sticky/sticky_collection_grid.dart';
 
 class StickyCollectionPage extends ConsumerWidget {
   const StickyCollectionPage({super.key});
