@@ -8,7 +8,7 @@ import '../../domain/domainModel/sticky/value/sticky_id.dart';
 import '../../domain/domainModel/sticky/value/sticky_last_edit.dart';
 import '../../domain/domainModel/sticky/value/sticky_state.dart';
 import '../../domain/domainModel/sticky/value/sticky_text.dart';
-import '../../domain/domainService/sticky/sticky_repository_interface.dart';
+import '../../domain/domainService/sticky/sticky_repository.dart';
 
 class StickyRepositoryMock implements StickyRepository {
   @override
