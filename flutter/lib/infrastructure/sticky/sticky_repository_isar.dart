@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-
 import 'package:isar/isar.dart';
 
 import '../../domain/domainModel/sticky/stickies.dart';
