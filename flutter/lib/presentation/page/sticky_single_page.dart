@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/logger.dart';
+import '../notifier/sticky/stickies_notifier.dart';
 import '../notifier/sticky/sticky_notifier.dart';
 import '../widget/sticky/sticky_color_palette.dart';
 import '../widget/sticky/sticky_text_field.dart';
@@ -29,6 +30,9 @@ class StickySinglePage extends ConsumerWidget {
                 children: [textField, const StickyColorPalette()])),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.collections),
-            onPressed: (() => context.go('/stickies'))));
+            onPressed: (() {
+              context.go('/stickies');
+              ref.read(stickiesNotifierProvider.notifier).fetchAll();
+            })));
   }
 }
