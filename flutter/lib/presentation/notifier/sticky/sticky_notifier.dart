@@ -39,6 +39,8 @@ class StickyNotifier extends StateNotifier<Sticky> {
         state: state.state.value);
   }
 
+  void changeAll(Sticky sticky) => state = sticky;
+
   void changeId(String id) => state = Sticky(
       id: StickyId(id),
       text: state.text,

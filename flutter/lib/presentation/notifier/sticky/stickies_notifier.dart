@@ -20,6 +20,8 @@ class StickiesNotifier extends StateNotifier<Stickies> {
       lastEdit: DateTime.now(),
       color: const Color(0xffff7f7f),
       state: StickyStateType.editing);
+
+  void resetAll() => state = Stickies(children: []);
 }
 
 final stickiesNotifierProvider =
