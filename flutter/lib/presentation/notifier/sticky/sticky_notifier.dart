@@ -4,7 +4,6 @@ import '../../../application/app.dart';
 import '../../../application/sticky/sticky_app_service.dart';
 import '../../../domain/domainModel/sticky/sticky.dart';
 import '../../../infrastructure/sticky/sticky_repository_isar.dart';
-import '../../../infrastructure/sticky/sticky_repository_mock.dart';
 
 class StickyNotifier extends StateNotifier<Sticky> {
   final StickyAppService _appService;

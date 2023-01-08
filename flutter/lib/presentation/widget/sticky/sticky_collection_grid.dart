@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/logger.dart';
 import '../../../domain/domainModel/sticky/stickies.dart';
 
 class StickyCollectionGrid extends StatelessWidget {
