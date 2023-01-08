@@ -12,7 +12,7 @@ class StickyNotifier extends StateNotifier<Sticky> {
         super(Sticky.initial());
 
   Future<void> getOneById(String id) async {
-    final result = await _appService.getOneById(id);
+    final result = await _appService.getOneById(stickyId: id);
     state = result;
   }
 }

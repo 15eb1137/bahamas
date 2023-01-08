@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'sticky.dart';
 
 class Stickies {
-  final List<Sticky> _children;
+  List<Sticky> _children;
 
   Stickies({required List<Sticky> children}) : _children = children;
 
@@ -18,4 +18,6 @@ class Stickies {
 
   @override
   int get hashCode => runtimeType.hashCode ^ _children.hashCode;
+
+  void add(Sticky value) => _children = [..._children, value];
 }
