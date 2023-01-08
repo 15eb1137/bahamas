@@ -13,13 +13,7 @@ class SearchPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const chipsData = [
-      <String, dynamic>{'type': 'startWith', 'text': '毎日メモ'},
-      <String, dynamic>{'type': 'startWith', 'text': 'xxx'},
-      <String, dynamic>{'type': 'startWith', 'text': 'yyy'},
-      <String, dynamic>{'type': 'startWith', 'text': 'zzz'},
-      <String, dynamic>{'type': 'startWith', 'text': 'oooo'},
-    ];
+    final chipsData = ref.watch(chipsDataProvider);
     final searchNotifier = ref.watch(searchNotifierProvider.notifier);
 
     return Scaffold(
