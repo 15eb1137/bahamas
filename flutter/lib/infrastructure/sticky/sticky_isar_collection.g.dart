@@ -37,8 +37,14 @@ const StickyIsarCollectionSchema = CollectionSchema(
       name: r'lastEdit',
       type: IsarType.dateTime,
     ),
-    r'text': PropertySchema(
+    r'state': PropertySchema(
       id: 4,
+      name: r'state',
+      type: IsarType.byte,
+      enumMap: _StickyIsarCollectionstateEnumValueMap,
+    ),
+    r'text': PropertySchema(
+      id: 5,
       name: r'text',
       type: IsarType.string,
     )
@@ -92,7 +98,8 @@ void _stickyIsarCollectionSerialize(
   writer.writeLong(offsets[1], object.fontSize);
   writer.writeString(offsets[2], object.id);
   writer.writeDateTime(offsets[3], object.lastEdit);
-  writer.writeString(offsets[4], object.text);
+  writer.writeByte(offsets[4], object.state.index);
+  writer.writeString(offsets[5], object.text);
 }
 
 StickyIsarCollection _stickyIsarCollectionDeserialize(
@@ -106,7 +113,10 @@ StickyIsarCollection _stickyIsarCollectionDeserialize(
   object.fontSize = reader.readLong(offsets[1]);
   object.id = reader.readString(offsets[2]);
   object.lastEdit = reader.readDateTime(offsets[3]);
-  object.text = reader.readString(offsets[4]);
+  object.state = _StickyIsarCollectionstateValueEnumMap[
+          reader.readByteOrNull(offsets[4])] ??
+      StickyStateType.editing;
+  object.text = reader.readString(offsets[5]);
   return object;
 }
 
@@ -126,11 +136,26 @@ P _stickyIsarCollectionDeserializeProp<P>(
     case 3:
       return (reader.readDateTime(offset)) as P;
     case 4:
+      return (_StickyIsarCollectionstateValueEnumMap[
+              reader.readByteOrNull(offset)] ??
+          StickyStateType.editing) as P;
+    case 5:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
+
+const _StickyIsarCollectionstateEnumValueMap = {
+  'editing': 0,
+  'readOnly': 1,
+  'archived': 2,
+};
+const _StickyIsarCollectionstateValueEnumMap = {
+  0: StickyStateType.editing,
+  1: StickyStateType.readOnly,
+  2: StickyStateType.archived,
+};
 
 Id _stickyIsarCollectionGetId(StickyIsarCollection object) {
   return object.isarId;
@@ -692,6 +717,62 @@ extension StickyIsarCollectionQueryFilter on QueryBuilder<StickyIsarCollection,
   }
 
   QueryBuilder<StickyIsarCollection, StickyIsarCollection,
+      QAfterFilterCondition> stateEqualTo(StickyStateType value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'state',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection,
+      QAfterFilterCondition> stateGreaterThan(
+    StickyStateType value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'state',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection,
+      QAfterFilterCondition> stateLessThan(
+    StickyStateType value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'state',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection,
+      QAfterFilterCondition> stateBetween(
+    StickyStateType lower,
+    StickyStateType upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'state',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection,
       QAfterFilterCondition> textEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -895,6 +976,20 @@ extension StickyIsarCollectionQuerySortBy
   }
 
   QueryBuilder<StickyIsarCollection, StickyIsarCollection, QAfterSortBy>
+      sortByState() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'state', Sort.asc);
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection, QAfterSortBy>
+      sortByStateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'state', Sort.desc);
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection, QAfterSortBy>
       sortByText() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'text', Sort.asc);
@@ -982,6 +1077,20 @@ extension StickyIsarCollectionQuerySortThenBy
   }
 
   QueryBuilder<StickyIsarCollection, StickyIsarCollection, QAfterSortBy>
+      thenByState() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'state', Sort.asc);
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection, QAfterSortBy>
+      thenByStateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'state', Sort.desc);
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection, QAfterSortBy>
       thenByText() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'text', Sort.asc);
@@ -1027,6 +1136,13 @@ extension StickyIsarCollectionQueryWhereDistinct
   }
 
   QueryBuilder<StickyIsarCollection, StickyIsarCollection, QDistinct>
+      distinctByState() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'state');
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyIsarCollection, QDistinct>
       distinctByText({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'text', caseSensitive: caseSensitive);
@@ -1064,6 +1180,13 @@ extension StickyIsarCollectionQueryProperty on QueryBuilder<
       lastEditProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'lastEdit');
+    });
+  }
+
+  QueryBuilder<StickyIsarCollection, StickyStateType, QQueryOperations>
+      stateProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'state');
     });
   }
 

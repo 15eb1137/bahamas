@@ -101,7 +101,8 @@ class _IsarInstanceTestHelper {
               ..text = sticky.text.value
               ..fontSize = sticky.fontSize.value
               ..lastEdit = sticky.lastEdit.value
-              ..color = sticky.color.value.value)
+              ..color = sticky.color.value.value
+              ..state = sticky.state.value)
             .toList(),
       );
     });

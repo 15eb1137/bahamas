@@ -1,5 +1,7 @@
 import 'package:isar/isar.dart';
 
+import '../../domain/domainModel/sticky/value/sticky_state.dart';
+
 part 'sticky_isar_collection.g.dart';
 
 @Collection(accessor: 'stickies')
@@ -17,8 +19,8 @@ class StickyIsarCollection {
 
   late int color;
 
-  // @enumerated
-  // late StickyState state;
+  @enumerated
+  late StickyStateType state;
 
   int fastHash(String string) {
     var hash = 0xcbf29ce484222325;

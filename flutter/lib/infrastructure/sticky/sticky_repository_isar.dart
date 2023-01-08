@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-
 import 'package:isar/isar.dart';
 
 import '../../domain/domainModel/sticky/stickies.dart';
@@ -36,7 +35,7 @@ class StickyRepositoryIsar implements StickyRepository {
                 fontSize: StickyFontSize(sticky.fontSize),
                 lastEdit: StickyLastEdit(sticky.lastEdit),
                 color: StickyColor(Color(sticky.color)),
-                state: const StickyState(StickyStateType.editing)))
+                state: StickyState(sticky.state)))
             .toList());
   }
 
@@ -56,7 +55,7 @@ class StickyRepositoryIsar implements StickyRepository {
         fontSize: StickyFontSize(result.fontSize),
         lastEdit: StickyLastEdit(result.lastEdit),
         color: StickyColor(Color(result.color)),
-        state: const StickyState(StickyStateType.editing));
+        state: StickyState(result.state));
   }
 
   @override
@@ -88,7 +87,8 @@ class StickyRepositoryIsar implements StickyRepository {
       ..text = newSticky.text.value
       ..fontSize = newSticky.fontSize.value
       ..lastEdit = newSticky.lastEdit.value
-      ..color = newSticky.color.value.value;
+      ..color = newSticky.color.value.value
+      ..state = newSticky.state.value;
     await _instance
         .writeTxn(() async => await _instance.stickies.put(newIsarSticky));
   }
@@ -103,7 +103,8 @@ class StickyRepositoryIsar implements StickyRepository {
       ..text = newSticky.text.value
       ..fontSize = newSticky.fontSize.value
       ..lastEdit = newSticky.lastEdit.value
-      ..color = newSticky.color.value.value;
+      ..color = newSticky.color.value.value
+      ..state = newSticky.state.value;
     await _instance
         .writeTxn(() async => await _instance.stickies.put(newIsarSticky));
   }
