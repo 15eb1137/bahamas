@@ -25,8 +25,7 @@ class StickyRepositoryIsar implements StickyRepository {
     if (!_instance.isOpen) {
       return Stickies(children: []);
     }
-    final result =
-        await _instance.collection<StickyIsarCollection>().where().findAll();
+    final result = await _instance.stickies.where().findAll();
     return Stickies(
         children: result
             .map((sticky) => Sticky(
