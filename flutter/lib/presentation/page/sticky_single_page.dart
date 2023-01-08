@@ -14,11 +14,12 @@ class StickySinglePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     logger.i('Here is Sticky single page! (${stickyId ?? 'new sticky'})');
-    final selectedSticky = ref.watch(stickyNotifierProvider);
+    final selectedStickyText =
+        ref.watch(stickyNotifierProvider.select((sticky) => sticky.text));
     StickyTextField textField = const StickyTextField();
     if (stickyId != null) {
       ref.watch(stickyNotifierProvider.notifier).getOneById(stickyId!);
-      textField = StickyTextField(initialText: selectedSticky.text.value);
+      textField = StickyTextField(initialText: selectedStickyText.value);
     }
 
     return Scaffold(
