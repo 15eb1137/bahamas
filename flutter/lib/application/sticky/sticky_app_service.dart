@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'package:bahamas/domain/domainModel/sticky/value/sticky_font_size.dart';
-import 'package:bahamas/domain/domainModel/sticky/value/sticky_last_edit.dart';
-import 'package:bahamas/domain/domainModel/sticky/value/sticky_state.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../domain/domainModel/sticky/stickies.dart';
 import '../../domain/domainModel/sticky/sticky.dart';
 import '../../domain/domainModel/sticky/value/sticky_color.dart';
+import '../../domain/domainModel/sticky/value/sticky_font_size.dart';
 import '../../domain/domainModel/sticky/value/sticky_id.dart';
+import '../../domain/domainModel/sticky/value/sticky_last_edit.dart';
+import '../../domain/domainModel/sticky/value/sticky_state.dart';
 import '../../domain/domainModel/sticky/value/sticky_text.dart';
 import '../../domain/domainService/sticky/sticky_repository.dart';
 

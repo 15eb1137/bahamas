@@ -1,7 +1,6 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:bahamas/common/logger.dart';
 import 'package:bahamas/infrastructure/sticky/sticky_isar_collection.dart';
 import 'package:bahamas/infrastructure/sticky/sticky_repository_isar.dart';
 import 'package:flutter_test/flutter_test.dart';

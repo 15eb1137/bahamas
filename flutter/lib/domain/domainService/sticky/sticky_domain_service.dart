@@ -1,4 +1,4 @@
-import 'package:bahamas/domain/domainModel/sticky/value/sticky_id.dart';
+import '../../domainModel/sticky/value/sticky_id.dart';
 
 class StickyExistCheckService {
   StickyExistCheckService();

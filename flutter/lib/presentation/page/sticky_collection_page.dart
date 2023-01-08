@@ -1,9 +1,7 @@
-import 'package:bahamas/infrastructure/isar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../common/logger.dart';
 import '../notifier/sticky/stickies_notifier.dart';
 import '../widget/sticky/sticky_collection_grid.dart';
 import 'search_page.dart';

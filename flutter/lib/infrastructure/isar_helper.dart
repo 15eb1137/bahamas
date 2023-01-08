@@ -1,11 +1,12 @@
-import 'package:bahamas/infrastructure/sticky/sticky_isar_collection.dart';
-import 'package:bahamas/infrastructure/sticky/sticky_repository_isar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'sticky/sticky_isar_collection.dart';
+import 'sticky/sticky_repository_isar.dart';
 
 final isarProvider = FutureProvider((ref) async => await IsarHelper().setUp());
 
