@@ -30,7 +30,7 @@ class StickyCollectionPage extends ConsumerWidget {
                 isResult ? ref.read(resultStickiesProvider) : stickies))
       ]),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => context.go('/sticky'), child: const Icon(Icons.add)),
+          onPressed: () => context.go('/sticky/new'), child: const Icon(Icons.add)),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../application/app.dart';
 import '../../../application/sticky/sticky_app_service.dart';
 import '../../../domain/domainModel/sticky/sticky.dart';
+import '../../../infrastructure/sticky/sticky_repository_isar.dart';
 import '../../../infrastructure/sticky/sticky_repository_mock.dart';
 
 class StickyNotifier extends StateNotifier<Sticky> {
@@ -19,4 +21,7 @@ class StickyNotifier extends StateNotifier<Sticky> {
 
 final stickyNotifierProvider = StateNotifierProvider<StickyNotifier, Sticky>(
     (ref) => StickyNotifier(
-        appService: StickyAppService(repository: StickyRepositoryMock())));
+        appService: StickyAppService(
+            repository: StickyRepositoryIsar(
+                instance: ref.watch(appModelProvider
+                    .select((model) => model.isarInstance!))))));

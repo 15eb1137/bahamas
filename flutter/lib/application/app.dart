@@ -17,12 +17,16 @@ final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
     AppModelState>((ref) => AppModelStateNotifier()
   ..init(
     router: GoRouter(
-      initialLocation: '/sticky',
+      initialLocation: '/sticky/new',
       routes: [
         GoRoute(
-            path: '/sticky',
+            path: '/sticky/new',
             builder: ((context, state) =>
-                const StickySinglePage(stickyId: 'ByIdTestId01'))),
+                const StickySinglePage(stickyId: null))),
+        GoRoute(
+            path: '/sticky/:stickId',
+            builder: ((context, state) =>
+                StickySinglePage(stickyId: state.params['stickId']))),
         GoRoute(
             path: '/stickies',
             builder: ((context, state) => const StickyCollectionPage())),
