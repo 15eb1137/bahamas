@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('TextField Learning test', (tester) async {
-    await tester.pumpWidget(wrap(const StickyTextField()));
+    await tester.pumpWidget(wrap(const StickyTextField(isNew: true)));
     expect(tester.testTextInput.isVisible, false);
 
     await tester.tap(find.byType(TextField));

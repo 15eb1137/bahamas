@@ -1,19 +1,22 @@
+import 'package:bahamas/presentation/notifier/sticky/sticky_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/logger.dart';
 
-class StickyTextField extends StatelessWidget {
-  final String initialText;
+class StickyTextField extends ConsumerWidget {
+  final bool isNew;
 
-  const StickyTextField({super.key, this.initialText = ''});
+  const StickyTextField({super.key, required this.isNew});
 
   @override
-  Widget build(BuildContext context) {
-    final _controller = TextEditingController(text: initialText);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedStickyText = ref.read(stickyNotifierProvider).text;
+
+    final _controller =
+        TextEditingController(text: isNew ? '' : selectedStickyText.value);
     return Stack(alignment: Alignment.bottomLeft, children: [
       ..._backgroundStickies(),
-
-      // Todo: animation
       Container(
           color: const Color(0xffff7f7f),
           child: Padding(
@@ -25,7 +28,10 @@ class StickyTextField extends StatelessWidget {
                   maxLines: null,
                   cursorColor: Colors.white,
                   decoration: const InputDecoration(border: InputBorder.none),
-                  style: const TextStyle(fontSize: 18))),
+                  style: const TextStyle(fontSize: 18),
+                  onChanged: (value) => ref
+                      .watch(stickyNotifierProvider.notifier)
+                      .changeText(value))),
           height: 300,
           width: 300),
       GestureDetector(

@@ -15,24 +15,35 @@ class StickySinglePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     logger.i('Here is Sticky single page! (${stickyId ?? 'new sticky'})');
-    final selectedStickyText =
-        ref.watch(stickyNotifierProvider.select((sticky) => sticky.text));
-    StickyTextField textField = const StickyTextField();
-    if (stickyId != null) {
-      ref.watch(stickyNotifierProvider.notifier).getOneById(stickyId!);
-      textField = StickyTextField(initialText: selectedStickyText.value);
-    }
+    final _focusNode = FocusNode();
 
-    return Scaffold(
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [textField, const StickyColorPalette()])),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.collections),
-            onPressed: (() {
-              context.go('/stickies');
-              ref.read(stickiesNotifierProvider.notifier).fetchAll();
-            })));
+    return Focus(
+        focusNode: _focusNode,
+        child: GestureDetector(
+            onTap: () async {
+              _focusNode.requestFocus();
+              if (stickyId == null) {
+                await ref.watch(stickyNotifierProvider.notifier).saveNew();
+                context.go(
+                    '/sticky/${ref.watch(stickyNotifierProvider).id.value}');
+              } else {
+                await ref.watch(stickyNotifierProvider.notifier).update();
+              }
+            },
+            child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                body: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                      StickyTextField(isNew: stickyId == null),
+                      const StickyColorPalette()
+                    ])),
+                floatingActionButton: FloatingActionButton(
+                    child: const Icon(Icons.collections),
+                    onPressed: (() {
+                      context.go('/stickies');
+                      ref.read(stickiesNotifierProvider.notifier).fetchAll();
+                    })))));
   }
 }

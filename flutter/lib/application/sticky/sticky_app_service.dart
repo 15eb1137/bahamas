@@ -17,20 +17,22 @@ class StickyAppService {
   StickyAppService({required StickyRepository repository})
       : _repository = repository;
 
-  Future<void> saveNew(
+  Future<StickyId> saveNew(
       {required String text,
       required int fontSize,
       required DateTime lastEdit,
       required Color color,
       required StickyStateType state}) async {
+    final publishedId = StickyId(const Uuid().v4());
     await _repository.saveNew(
         newSticky: Sticky(
-            id: StickyId(const Uuid().v4()),
+            id: publishedId,
             text: StickyText(text),
             fontSize: StickyFontSize(fontSize),
             lastEdit: StickyLastEdit(lastEdit),
             color: StickyColor(color),
             state: StickyState(state)));
+    return publishedId;
   }
 
   Future<void> update(
