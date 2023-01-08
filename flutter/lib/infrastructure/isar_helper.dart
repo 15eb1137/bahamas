@@ -15,7 +15,7 @@ class IsarHelper {
   Future<Isar> setUp() async {
     //TODO: 表記をTest側と統一したい
     WidgetsFlutterBinding.ensureInitialized();
-        String path = '';
+    String path = '';
     if (!kIsWeb) {
       final dir = await getApplicationSupportDirectory();
       path = dir.path;

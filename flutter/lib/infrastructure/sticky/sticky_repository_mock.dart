@@ -30,7 +30,8 @@ class StickyRepositoryMock implements StickyRepository {
       ]);
 
   @override
-  Future<Stickies> getSomeByCreatedAt({required DateTime start, required DateTime end}) async =>
+  Future<Stickies> getSomeByCreatedAt(
+          {required DateTime start, required DateTime end}) async =>
       Stickies(children: [
         Sticky(
             id: StickyId('ByCreatedAtTestId01'),
@@ -49,7 +50,8 @@ class StickyRepositoryMock implements StickyRepository {
       ]);
 
   @override
-  Future<Stickies> getSomeByTextCondition({required RegExp textCondition}) async =>
+  Future<Stickies> getSomeByTextCondition(
+          {required RegExp textCondition}) async =>
       Stickies(children: [
         Sticky(
             id: StickyId('ByTextConditionTestId01'),
@@ -83,5 +85,6 @@ class StickyRepositoryMock implements StickyRepository {
   Future<void> saveNew({required Sticky newSticky}) async {}
 
   @override
-  Future<void> update({required StickyId id, required Sticky newSticky}) async {}
+  Future<void> update(
+      {required StickyId id, required Sticky newSticky}) async {}
 }

@@ -116,7 +116,8 @@ void main() {
             lastEdit: StickyLastEdit(DateTime(2023, 1, 8, 11, 42, 32)),
             color: StickyColor(const Color(0xffff7f7f)),
             state: const StickyState(StickyStateType.editing)));
-    final stickyGetByIdUpdated = await repository.getOneById(id: StickyId('TestId01'));
+    final stickyGetByIdUpdated =
+        await repository.getOneById(id: StickyId('TestId01'));
     expect(stickyGetByIdUpdated, stickiesUpdatedTestData.children.first);
   });
 }
