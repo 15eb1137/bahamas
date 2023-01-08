@@ -30,7 +30,8 @@ class StickyRepositoryMock implements StickyRepository {
       ]);
 
   @override
-  Future<Stickies> getSomeByCreatedAt(DateTime createdAt) async =>
+  Future<Stickies> getSomeByCreatedAt(
+          {required DateTime start, required DateTime end}) async =>
       Stickies(children: [
         Sticky(
             id: StickyId('ByCreatedAtTestId01'),
@@ -49,7 +50,8 @@ class StickyRepositoryMock implements StickyRepository {
       ]);
 
   @override
-  Future<Stickies> getSomeByTextCondition(String textCondition) async =>
+  Future<Stickies> getSomeByTextCondition(
+          {required RegExp textCondition}) async =>
       Stickies(children: [
         Sticky(
             id: StickyId('ByTextConditionTestId01'),
@@ -68,7 +70,7 @@ class StickyRepositoryMock implements StickyRepository {
       ]);
 
   @override
-  Future<Sticky> getOneById(StickyId id) async => Sticky(
+  Future<Sticky> getOneById({required StickyId id}) async => Sticky(
       id: StickyId('ByIdTestId01'),
       text: StickyText('ByIdTestText01'),
       fontSize: StickyFontSize(16),
@@ -77,11 +79,12 @@ class StickyRepositoryMock implements StickyRepository {
       state: const StickyState(StickyStateType.editing));
 
   @override
-  Future<void> remove(StickyId id) async {}
+  Future<void> remove({required StickyId id}) async {}
 
   @override
-  Future<void> saveNew(Sticky newSticky) async {}
+  Future<void> saveNew({required Sticky newSticky}) async {}
 
   @override
-  Future<void> update(StickyId id, Sticky newSticky) async {}
+  Future<void> update(
+      {required StickyId id, required Sticky newSticky}) async {}
 }

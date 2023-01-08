@@ -30,8 +30,8 @@ class Sticky {
         _state = state;
 
   factory Sticky.initial() => Sticky(
-      id: StickyId(''),
-      text: StickyText(''),
+      id: StickyId('test'),
+      text: StickyText('test'),
       fontSize: StickyFontSize(16),
       lastEdit: StickyLastEdit(DateTime(2020, 1, 1, 0, 0, 0)),
       color: StickyColor(const Color(0xffff7f7f)),
