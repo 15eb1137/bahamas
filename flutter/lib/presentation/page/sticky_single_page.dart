@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/logger.dart';
+import '../notifier/sticky/stickies_notifier.dart';
 import '../notifier/sticky/sticky_notifier.dart';
 import '../widget/sticky/sticky_color_palette.dart';
 import '../widget/sticky/sticky_text_field.dart';
@@ -14,11 +15,12 @@ class StickySinglePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     logger.i('Here is Sticky single page! (${stickyId ?? 'new sticky'})');
-    final selectedSticky = ref.watch(stickyNotifierProvider);
+    final selectedStickyText =
+        ref.watch(stickyNotifierProvider.select((sticky) => sticky.text));
     StickyTextField textField = const StickyTextField();
     if (stickyId != null) {
       ref.watch(stickyNotifierProvider.notifier).getOneById(stickyId!);
-      textField = StickyTextField(initialText: selectedSticky.text.value);
+      textField = StickyTextField(initialText: selectedStickyText.value);
     }
 
     return Scaffold(
@@ -28,6 +30,9 @@ class StickySinglePage extends ConsumerWidget {
                 children: [textField, const StickyColorPalette()])),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.collections),
-            onPressed: (() => context.go('/stickies'))));
+            onPressed: (() {
+              context.go('/stickies');
+              ref.read(stickiesNotifierProvider.notifier).fetchAll();
+            })));
   }
 }

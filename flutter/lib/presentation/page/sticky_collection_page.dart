@@ -13,7 +13,6 @@ class StickyCollectionPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(stickiesNotifierProvider.notifier).fetchAll();
     final stickies = ref.watch(stickiesNotifierProvider);
     return Scaffold(
       body: Column(children: [
