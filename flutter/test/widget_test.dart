@@ -1,4 +1,3 @@
-
 import 'package:bahamas/presentation/widget/sticky/sticky_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
