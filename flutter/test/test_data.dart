@@ -113,6 +113,15 @@ final stickiesSavedTestData = Stickies(children: [
       color: StickyColor(const Color(0xffff7f7f)),
       state: const StickyState(StickyStateType.editing))
 ]);
+
+final newSavedSticy = Sticky(
+    id: StickyId('testId'),
+    text: StickyText('TestText'),
+    fontSize: StickyFontSize(16),
+    lastEdit: StickyLastEdit(DateTime(2022, 10, 1)),
+    color: StickyColor(const Color(0xffff7f7f)),
+    state: const StickyState(StickyStateType.editing));
+
 final stickiesUpdatedTestData = Stickies(children: [
   Sticky(
       id: StickyId('TestId01'),

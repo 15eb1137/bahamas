@@ -78,14 +78,32 @@ class StickyRepositoryIsar implements StickyRepository {
   }
 
   @override
-  Future<void> saveNew({required Sticky newSticky}) {
-    // TODO: implement saveNew
-    throw UnimplementedError();
+  Future<void> saveNew({required Sticky newSticky}) async {
+    if (!_instance.isOpen) {
+      throw Exception();
+    }
+    final newIsarSticky = StickyIsarCollection()
+      ..id = newSticky.id.value
+      ..text = newSticky.text.value
+      ..fontSize = newSticky.fontSize.value
+      ..lastEdit = newSticky.lastEdit.value
+      ..color = newSticky.color.value.value;
+    await _instance
+        .writeTxn(() async => await _instance.stickies.put(newIsarSticky));
   }
 
   @override
-  Future<void> update({required StickyId id, required Sticky newSticky}) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<void> update({required StickyId id, required Sticky newSticky}) async {
+    if (!_instance.isOpen) {
+      throw Exception();
+    }
+    final newIsarSticky = StickyIsarCollection()
+      ..id = newSticky.id.value
+      ..text = newSticky.text.value
+      ..fontSize = newSticky.fontSize.value
+      ..lastEdit = newSticky.lastEdit.value
+      ..color = newSticky.color.value.value;
+    await _instance
+        .writeTxn(() async => await _instance.stickies.put(newIsarSticky));
   }
 }

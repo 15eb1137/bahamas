@@ -9,7 +9,6 @@ import 'package:bahamas/domain/domainModel/sticky/value/sticky_id.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_last_edit.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_state.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_text.dart';
-import 'package:bahamas/infrastructure/sticky/sticky_isar_collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'isar_helper.dart';
@@ -50,13 +49,6 @@ void main() {
     expect(resultRemoved, expectedRemoved);
 
     resetStickiesTestData();
-    final newSavedSticy = Sticky(
-        id: StickyId('testId'),
-        text: StickyText('TestText'),
-        fontSize: StickyFontSize(16),
-        lastEdit: StickyLastEdit(DateTime(2022, 10, 1)),
-        color: StickyColor(const Color(0xffff7f7f)),
-        state: const StickyState(StickyStateType.editing));
     await appService.saveNew(
         text: newSavedSticy.text.value,
         fontSize: newSavedSticy.fontSize.value,
@@ -110,5 +102,21 @@ void main() {
 
     final stickyGetById = await repository.getOneById(id: StickyId('TestId01'));
     expect(stickyGetById, stickiesDefaultTestData.children.first);
+
+    await repository.saveNew(newSticky: newSavedSticy);
+    final stickiesGetAllSaved = await repository.getAll();
+    expect(stickiesGetAllSaved.length, 3);
+
+    await repository.update(
+        id: StickyId('TestId01'),
+        newSticky: Sticky(
+            id: StickyId('TestId01'),
+            text: StickyText('Updated Text'),
+            fontSize: StickyFontSize(16),
+            lastEdit: StickyLastEdit(DateTime(2023, 1, 8, 11, 42, 32)),
+            color: StickyColor(const Color(0xffff7f7f)),
+            state: const StickyState(StickyStateType.editing)));
+    final stickyGetByIdUpdated = await repository.getOneById(id: StickyId('TestId01'));
+    expect(stickyGetByIdUpdated, stickiesUpdatedTestData.children.first);
   });
 }
