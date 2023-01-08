@@ -11,12 +11,12 @@ import 'package:bahamas/domain/domainModel/sticky/value/sticky_state.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_text.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'isar_helper.dart';
+import 'isar_test_helper.dart';
 import 'sticky_repository_mock.dart';
 import 'test_data.dart';
 
 void main() {
-  final _isarHelper = IsarHelper();
+  final _isarHelper = IsarTestHelper();
   setUp(_isarHelper.setUp);
   tearDown(_isarHelper.tearDown);
 

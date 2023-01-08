@@ -13,8 +13,8 @@ import 'package:path_provider_platform_interface/path_provider_platform_interfac
 import 'mock_path_provider_platform.dart';
 import 'test_data.dart';
 
-class IsarHelper {
-  final _instanceHelper = _IsarInstanceHelper();
+class IsarTestHelper {
+  final _instanceHelper = _IsarInstanceTestHelper();
   StickyRepositoryIsar? _stickyRepository;
 
   Future<void> setUp() async {
@@ -37,7 +37,7 @@ class IsarHelper {
   }
 }
 
-class _IsarInstanceHelper {
+class _IsarInstanceTestHelper {
   Isar? _isar;
   Isar get isar => _isar!;
 
