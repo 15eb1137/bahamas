@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:bahamas/application/sticky/sticky_app_service.dart';
-import 'package:bahamas/common/logger.dart';
 import 'package:bahamas/domain/domainModel/sticky/stickies.dart';
 import 'package:bahamas/domain/domainModel/sticky/sticky.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_color.dart';
@@ -10,12 +9,18 @@ import 'package:bahamas/domain/domainModel/sticky/value/sticky_id.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_last_edit.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_state.dart';
 import 'package:bahamas/domain/domainModel/sticky/value/sticky_text.dart';
+import 'package:bahamas/infrastructure/sticky/sticky_isar_collection.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'isar_helper.dart';
 import 'sticky_repository_mock.dart';
 import 'test_data.dart';
 
 void main() {
+  final _isarHelper = IsarHelper();
+  setUp(_isarHelper.setUp);
+  tearDown(_isarHelper.tearDown);
+
   test('Stickies AppService Tests', () async {
     final appService = StickyAppService(repository: StickyRepositoryMock());
     resetStickiesTestData();
@@ -87,5 +92,23 @@ void main() {
         resultUpdated.children.first.text, expectedUpdated.children.first.text);
     expect(resultUpdated.children.first.lastEdit,
         expectedUpdated.children.first.lastEdit);
+  });
+
+  test('Stickies Isar Repository Tests', () async {
+    final repository = _isarHelper.getStickyRepository();
+
+    final stickiesGetAll = await repository.getAll();
+    expect(stickiesGetAll.length, 2);
+
+    // final stickiesGetByCreatedAt = repository.getSomeByCreatedAt(
+    //     start: DateTime(2022, 10, 1), end: DateTime(2023, 1, 1));
+    // expect(actual, matcher);
+
+    // final stickiesGetByTextCondition =
+    //     repository.getSomeByTextCondition(textCondition: RegExp(r'test'));
+    // expect(actual, matcher);
+
+    final stickyGetById = await repository.getOneById(id: StickyId('TestId01'));
+    expect(stickyGetById, stickiesDefaultTestData.children.first);
   });
 }
