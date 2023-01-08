@@ -1,6 +1,5 @@
 import 'package:isar/isar.dart';
 
-
 part 'sticky_isar_collection.g.dart';
 
 @Collection(accessor: 'stickies')
