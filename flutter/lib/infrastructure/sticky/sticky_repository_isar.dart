@@ -61,19 +61,16 @@ class StickyRepositoryIsar implements StickyRepository {
   @override
   Future<Stickies> getSomeByCreatedAt(
       {required DateTime start, required DateTime end}) {
-    // TODO: implement getSomeByCreatedAt
     throw UnimplementedError();
   }
 
   @override
   Future<Stickies> getSomeByTextCondition({required RegExp textCondition}) {
-    // TODO: implement getSomeByTextCondition
     throw UnimplementedError();
   }
 
   @override
   Future<void> remove({required StickyId id}) {
-    // TODO: implement remove
     throw UnimplementedError();
   }
 

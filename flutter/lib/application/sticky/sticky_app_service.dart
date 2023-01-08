@@ -25,7 +25,7 @@ class StickyAppService {
       required StickyStateType state}) async {
     await _repository.saveNew(
         newSticky: Sticky(
-            id: StickyId(const Uuid().v4()), // TODO: to factory
+            id: StickyId(const Uuid().v4()),
             text: StickyText(text),
             fontSize: StickyFontSize(fontSize),
             lastEdit: StickyLastEdit(lastEdit),

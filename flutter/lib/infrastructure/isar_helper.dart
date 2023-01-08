@@ -14,7 +14,6 @@ class IsarHelper {
   StickyRepositoryIsar? _stickyRepository;
 
   Future<Isar> setUp() async {
-    //TODO: 表記をTest側と統一したい
     WidgetsFlutterBinding.ensureInitialized();
     String path = '';
     if (!kIsWeb) {
@@ -37,7 +36,6 @@ class IsarHelper {
   }
 
   // StickyRepositoryIsar getStickyRepository() {
-  //   // TODO: instanceとrepositoryの管理は分けたい
   //   return _stickyRepository ??= StickyRepositoryIsar(
   //     instance: _instanceHelper.isar,
   //   );
