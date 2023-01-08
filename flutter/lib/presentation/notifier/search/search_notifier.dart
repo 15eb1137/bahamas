@@ -8,7 +8,6 @@ import '../../../domain/domainModel/search/value/search_condition.dart';
 import '../../../domain/domainModel/search/value/search_result.dart';
 import '../../../domain/domainModel/sticky/stickies.dart';
 import '../../../infrastructure/search/search_repository_cache.dart';
-import '../../../infrastructure/search/search_repository_mock.dart';
 import '../../../infrastructure/sticky/sticky_repository_isar.dart';
 
 class SearchNotifier extends StateNotifier<Search> {
