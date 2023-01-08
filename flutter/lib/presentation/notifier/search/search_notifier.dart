@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../application/app.dart';
 import '../../../application/search/search_app_service.dart';
 import '../../../application/sticky/sticky_app_service.dart';
 import '../../../domain/domainModel/search/search.dart';
@@ -7,7 +8,7 @@ import '../../../domain/domainModel/search/value/search_condition.dart';
 import '../../../domain/domainModel/search/value/search_result.dart';
 import '../../../domain/domainModel/sticky/stickies.dart';
 import '../../../infrastructure/search/search_repository_mock.dart';
-import '../../../infrastructure/sticky/sticky_repository_mock.dart';
+import '../../../infrastructure/sticky/sticky_repository_isar.dart';
 
 class SearchNotifier extends StateNotifier<Search> {
   final SearchAppService _appService;
@@ -47,5 +48,7 @@ class SearchNotifier extends StateNotifier<Search> {
 final searchNotifierProvider = StateNotifierProvider<SearchNotifier, Search>(
     (ref) => SearchNotifier(
         appService: SearchAppService(repository: SearchRepositoryMock()),
-        stickyAppService:
-            StickyAppService(repository: StickyRepositoryMock())));
+        stickyAppService: StickyAppService(
+            repository: StickyRepositoryIsar(
+                instance: ref.watch(appModelProvider
+                    .select((model) => model.isarInstance!))))));
