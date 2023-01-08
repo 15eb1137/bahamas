@@ -17,7 +17,7 @@ final appModelProvider = StateNotifierProvider<AppModelStateNotifier,
     AppModelState>((ref) => AppModelStateNotifier()
   ..init(
     router: GoRouter(
-      initialLocation: '/search',
+      initialLocation: '/sticky',
       routes: [
         GoRoute(
             path: '/sticky',
