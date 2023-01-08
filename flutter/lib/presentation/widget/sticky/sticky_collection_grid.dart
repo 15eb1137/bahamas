@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/logger.dart';
 import '../../../domain/domainModel/sticky/stickies.dart';
 
 class StickyCollectionGrid extends StatelessWidget {
@@ -20,21 +19,21 @@ class StickyCollectionGrid extends StatelessWidget {
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: ((context, index) {
           final sticky = stickies[index];
-          return _gridItem(context, sticky.text.value, sticky.color.value);
+          return _gridItem(
+              context, sticky.id.value, sticky.text.value, sticky.color.value);
         }));
   }
 
-  Widget _gridItem(BuildContext context, String text, Color color) {
+  Widget _gridItem(BuildContext context, String id, String text, Color color) {
     double getRandomAngleDegree(double maxDegreeAbs) =>
         maxDegreeAbs * (Random().nextDouble() - 0.5) * 2;
     double transformDegreeToRadian(double degree) => degree * (pi / 180);
     final angleDegree = getRandomAngleDegree(10);
-    logger.i('$text: ${angleDegree.round()}°');
     return GridTile(
         child: Transform.rotate(
             angle: transformDegreeToRadian(angleDegree),
             child: GestureDetector(
-                onTap: () => context.go('/sticky'),
+                onTap: () => context.go('/sticky/$id'),
                 child: Container(
                   color: color,
                   padding: const EdgeInsets.all(9),

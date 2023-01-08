@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../common/logger.dart';
 
 class StickyTextField extends StatelessWidget {
-  const StickyTextField({super.key});
+  final String initialText;
+
+  const StickyTextField({super.key, this.initialText = ''});
 
   @override
   Widget build(BuildContext context) {
-    final _controller = TextEditingController(text: '');
+    final _controller = TextEditingController(text: initialText);
     return Stack(alignment: Alignment.bottomLeft, children: [
       ..._backgroundStickies(),
 
