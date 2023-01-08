@@ -24,9 +24,7 @@ class SearchPage extends ConsumerWidget {
 
     return Scaffold(
       body: Column(children: [
-        const SearchConditionsForm(
-          chipsData: chipsData,
-        ),
+        const SearchConditionsForm(),
         ElevatedButton(
             onPressed: () async {
               searchNotifier.changeCondition('^${chipsData.first['text']}.*');
@@ -37,7 +35,12 @@ class SearchPage extends ConsumerWidget {
             },
             child: const Text('検索')),
         SearchTextFieldStartWith(
-          addStartWithChip: (text) {},
+          addStartWithChip: (text) {
+            ref.read(chipsDataProvider.notifier).state = [
+              ...ref.read(chipsDataProvider),
+              <String, dynamic>{'type': 'startWith', 'text': text}
+            ];
+          },
         )
       ]),
     );
@@ -46,3 +49,6 @@ class SearchPage extends ConsumerWidget {
 
 final resultStickiesProvider =
     StateProvider<Stickies>((ref) => Stickies(children: []));
+
+final chipsDataProvider =
+    StateProvider<List<Map<String, dynamic>>>((ref) => []);
