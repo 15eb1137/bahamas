@@ -13,7 +13,7 @@ class SearchConditionsForm extends ConsumerWidget {
     final chipsData = ref.watch(chipsDataProvider);
     final List<Widget> startWithChips = chipsData.map((data) {
       if (data['type'] == 'startWith') {
-        return SearchBadgeStartWith(text: data['text'].toString());
+        return SearchBadgeStartWith(id: data['id'].toString(), text: data['text'].toString());
       } else {
         return Container();
       }

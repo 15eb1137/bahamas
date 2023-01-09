@@ -22,7 +22,10 @@ class StickyCollectionPage extends ConsumerWidget {
             child: Padding(
                 padding: const EdgeInsets.all(24),
                 child: ElevatedButton(
-                    onPressed: () => context.go('/search'),
+                    onPressed: () {
+                      ref.watch(chipsDataProvider.notifier).state = [];
+                      context.go('/search');
+                    },
                     child: const Text('メモを検索')))),
         Expanded(
             child: StickyCollectionGrid(
