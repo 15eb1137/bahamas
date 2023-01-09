@@ -31,11 +31,25 @@ class SearchConditionsForm extends ConsumerWidget {
     }).toList();
     final List<Widget> includeChips = chipsData.map((data) {
       if (data['type'] == 'include') {
-        return SearchBadgeInclude(id: data['id'].toString(), text: data['text'].toString());
+        return SearchBadgeInclude(
+            id: data['id'].toString(), text: data['text'].toString());
       } else {
         return Container();
       }
     }).toList();
-    return Wrap(children: [...startWithChips, ...endWithChips, ...includeChips]);
+    // final List<Widget> excludeChips = chipsData.map((data) {
+    //   if (data['type'] == 'exclude') {
+    //     return SearchBadgeExclude(
+    //         id: data['id'].toString(), text: data['text'].toString());
+    //   } else {
+    //     return Container();
+    //   }
+    // }).toList();
+    return Wrap(children: [
+      ...startWithChips,
+      ...endWithChips,
+      ...includeChips,
+      // ...excludeChips
+    ]);
   }
 }

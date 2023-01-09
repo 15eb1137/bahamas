@@ -1,4 +1,4 @@
-import 'package:bahamas/presentation/widget/search/search_text_field_include.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +9,7 @@ import '../notifier/search/search_notifier.dart';
 import '../notifier/sticky/stickies_notifier.dart';
 import '../widget/search/search_conditions_form.dart';
 import '../widget/search/search_text_field_end_with.dart';
+import '../widget/search/search_text_field_include.dart';
 import '../widget/search/search_text_field_start_with.dart';
 
 class SearchPage extends ConsumerWidget {
@@ -48,6 +49,17 @@ class SearchPage extends ConsumerWidget {
       ];
       ref.read(searchTextFieldIncludeEditingTextProvider).clear();
     }
+    // if (ref.read(searchTextFieldExcludeEditingTextProvider).text != '') {
+    //   ref.read(chipsDataProvider.notifier).state = [
+    //     ...ref.read(chipsDataProvider),
+    //     <String, dynamic>{
+    //       'id': const Uuid().v4(),
+    //       'type': 'exclude',
+    //       'text': ref.read(searchTextFieldExcludeEditingTextProvider).text
+    //     }
+    //   ];
+    //   ref.read(searchTextFieldExcludeEditingTextProvider).clear();
+    // }
   }
 
   @override
@@ -63,28 +75,51 @@ class SearchPage extends ConsumerWidget {
             registChipData(ref);
           },
           child: Scaffold(
-            appBar: AppBar(title: const Text('検索する'),),
+            appBar: AppBar(
+              title: const Text('検索する'),
+            ),
             body: Column(children: [
               const SearchConditionsForm(),
               ElevatedButton(
                   onPressed: () async {
                     final startWithChipsData = chipsData
                         .where((chipData) => chipData['type'] == 'startWith')
-                        .map((startWithChipData) => r'^' + startWithChipData['text'].toString())
+                        .map((startWithChipData) =>
+                            r'^' + startWithChipData['text'].toString())
                         .toList();
                     final endWithChipsData = chipsData
                         .where((chipData) => chipData['type'] == 'endWith')
-                        .map((endWithChipData) => endWithChipData['text'].toString() + r'$')
+                        .map((endWithChipData) =>
+                            endWithChipData['text'].toString() + r'$')
                         .toList();
                     final includeChipsData = chipsData
                         .where((chipData) => chipData['type'] == 'include')
-                        .map((includeChipData) => r'(?=.*' + includeChipData['text'].toString() + r')')
+                        .map((includeChipData) =>
+                            r'(?=.*' +
+                            includeChipData['text'].toString() +
+                            r')')
                         .toList();
+                    // final excludeChipsData = chipsData
+                    //     .where((chipData) => chipData['type'] == 'exclude')
+                    //     .map((excludeChipData) =>
+                    //         r'(?!.*' +
+                    //         excludeChipData['text'].toString() +
+                    //         r')')
+                    //     .toList();
                     searchNotifier.changeCondition(
-                      (startWithChipsData.isNotEmpty ? startWithChipsData.first : '')
-                       + (includeChipsData.isNotEmpty ? includeChipsData.join() : '')
-                       + r'.*'
-                       + (endWithChipsData.isNotEmpty ? endWithChipsData.first : ''));
+                        (startWithChipsData.isNotEmpty
+                                ? startWithChipsData.first
+                                : '') +
+                            (includeChipsData.isNotEmpty
+                                ? includeChipsData.join()
+                                : '') +
+                            // (excludeChipsData.isNotEmpty
+                            //     ? excludeChipsData.join()
+                            //     : '') +
+                            r'.*' +
+                            (endWithChipsData.isNotEmpty
+                                ? endWithChipsData.first
+                                : ''));
                     final result = await searchNotifier.search();
                     ref.watch(resultStickiesProvider.notifier).state = result;
                     await ref
@@ -96,6 +131,7 @@ class SearchPage extends ConsumerWidget {
               const SearchTextFieldStartWith(),
               const SearchTextFieldEndWith(),
               const SearchTextFieldInclude(),
+              // const SearchTextFieldExclude()
             ]),
           ),
         ));
