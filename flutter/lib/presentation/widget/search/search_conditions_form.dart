@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../page/search_page.dart';
+import 'search_badge_end_with.dart';
 import 'search_badge_start_with.dart';
 
 class SearchConditionsForm extends ConsumerWidget {
@@ -18,6 +19,13 @@ class SearchConditionsForm extends ConsumerWidget {
         return Container();
       }
     }).toList();
-    return Wrap(children: startWithChips);
+    final List<Widget> endWithChips = chipsData.map((data) {
+      if (data['type'] == 'endWith') {
+        return SearchBadgeEndWith(id: data['id'].toString(), text: data['text'].toString());
+      } else {
+        return Container();
+      }
+    }).toList();
+    return Wrap(children: [...startWithChips, ...endWithChips]);
   }
 }
