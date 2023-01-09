@@ -25,8 +25,7 @@ class StickyRepositoryIsar implements StickyRepository {
     if (!_instance.isOpen) {
       return Stickies(children: []);
     }
-    final result =
-        await _instance.collection<StickyIsarCollection>().where().findAll();
+    final result = await _instance.stickies.where().findAll();
     return Stickies(
         children: result
             .map((sticky) => Sticky(
@@ -61,19 +60,16 @@ class StickyRepositoryIsar implements StickyRepository {
   @override
   Future<Stickies> getSomeByCreatedAt(
       {required DateTime start, required DateTime end}) {
-    // TODO: implement getSomeByCreatedAt
     throw UnimplementedError();
   }
 
   @override
   Future<Stickies> getSomeByTextCondition({required RegExp textCondition}) {
-    // TODO: implement getSomeByTextCondition
     throw UnimplementedError();
   }
 
   @override
   Future<void> remove({required StickyId id}) {
-    // TODO: implement remove
     throw UnimplementedError();
   }
 

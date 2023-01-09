@@ -4,8 +4,11 @@ class StickyExistCheckService {
   StickyExistCheckService();
 
   bool isExistId(StickyId id) {
-    return false; // TODO: implement
+    throw UnimplementedError();
+    // return false;
   }
 
-  void saveByExistCheck(bool isExistId) {} // TODO: implement
+  void saveByExistCheck(bool isExistId) {
+    throw UnimplementedError();
+  }
 }

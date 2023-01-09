@@ -29,7 +29,6 @@ class IsarTestHelper {
   }
 
   StickyRepositoryIsar getStickyRepository() {
-    // TODO: instanceとrepositoryの管理は分けたい
     return _stickyRepository ??= StickyRepositoryIsar(
       instance: _instanceHelper.isar,
     );

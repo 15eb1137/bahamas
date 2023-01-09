@@ -12,12 +12,11 @@ class SearchRepositoryCache implements SearchRepository {
 
   @override
   Future<Search> getOneById({required SearchId id}) async {
-    return search.id == id ? search : Search.initial(); // TODO: notFound case
+    return search.id == id ? search : Search.initial();
   }
 
   @override
   Future<void> remove({required SearchId id}) {
-    // TODO: implement remove
     throw UnimplementedError();
   }
 
