@@ -23,7 +23,8 @@ class SearchConditionsForm extends ConsumerWidget {
     }).toList();
     final List<Widget> endWithChips = chipsData.map((data) {
       if (data['type'] == 'endWith') {
-        return SearchBadgeEndWith(id: data['id'].toString(), text: data['text'].toString());
+        return SearchBadgeEndWith(
+            id: data['id'].toString(), text: data['text'].toString());
       } else {
         return Container();
       }
