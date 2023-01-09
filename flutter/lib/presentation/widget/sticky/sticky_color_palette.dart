@@ -14,11 +14,19 @@ class StickyColorPalette extends StatelessWidget {
           Container(
               width: 20,
               decoration: const BoxDecoration(
-                  color: Color(0xff7fbfff), shape: BoxShape.circle)),
+                  color: Color(0xffff7f7f), shape: BoxShape.circle)),
           Container(
               width: 20,
               decoration: const BoxDecoration(
-                  color: Color(0xffffff7f), shape: BoxShape.circle))
+                  color: Color(0xffff7f7f), shape: BoxShape.circle)),
+          // Container(
+          //     width: 20,
+          //     decoration: const BoxDecoration(
+          //         color: Color(0xff7fbfff), shape: BoxShape.circle)),
+          // Container(
+          //     width: 20,
+          //     decoration: const BoxDecoration(
+          //         color: Color(0xffffff7f), shape: BoxShape.circle))
         ]),
         width: 100,
         height: 60);
