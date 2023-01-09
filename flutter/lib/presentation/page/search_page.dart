@@ -1,3 +1,4 @@
+import 'package:bahamas/presentation/widget/search/search_text_field_include.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -36,6 +37,17 @@ class SearchPage extends ConsumerWidget {
       ];
       ref.read(searchTextFieldEndWithEditingTextProvider).clear();
     }
+    if (ref.read(searchTextFieldIncludeEditingTextProvider).text != '') {
+      ref.read(chipsDataProvider.notifier).state = [
+        ...ref.read(chipsDataProvider),
+        <String, dynamic>{
+          'id': const Uuid().v4(),
+          'type': 'include',
+          'text': ref.read(searchTextFieldIncludeEditingTextProvider).text
+        }
+      ];
+      ref.read(searchTextFieldIncludeEditingTextProvider).clear();
+    }
   }
 
   @override
@@ -51,24 +63,28 @@ class SearchPage extends ConsumerWidget {
             registChipData(ref);
           },
           child: Scaffold(
+            appBar: AppBar(title: const Text('検索する'),),
             body: Column(children: [
               const SearchConditionsForm(),
               ElevatedButton(
                   onPressed: () async {
                     final startWithChipsData = chipsData
                         .where((chipData) => chipData['type'] == 'startWith')
+                        .map((startWithChipData) => r'^' + startWithChipData['text'].toString())
                         .toList();
                     final endWithChipsData = chipsData
                         .where((chipData) => chipData['type'] == 'endWith')
+                        .map((endWithChipData) => endWithChipData['text'].toString() + r'$')
                         .toList();
-                    searchNotifier.changeCondition((startWithChipsData
-                                .isNotEmpty
-                            ? r'^' + startWithChipsData.first['text'].toString()
-                            : '') +
-                        r'.*' +
-                        (endWithChipsData.isNotEmpty
-                            ? endWithChipsData.first['text'].toString() + r'$'
-                            : ''));
+                    final includeChipsData = chipsData
+                        .where((chipData) => chipData['type'] == 'include')
+                        .map((includeChipData) => r'(?=.*' + includeChipData['text'].toString() + r')')
+                        .toList();
+                    searchNotifier.changeCondition(
+                      (startWithChipsData.isNotEmpty ? startWithChipsData.first : '')
+                       + (includeChipsData.isNotEmpty ? includeChipsData.join() : '')
+                       + r'.*'
+                       + (endWithChipsData.isNotEmpty ? endWithChipsData.first : ''));
                     final result = await searchNotifier.search();
                     ref.watch(resultStickiesProvider.notifier).state = result;
                     await ref
@@ -78,7 +94,8 @@ class SearchPage extends ConsumerWidget {
                   },
                   child: const Text('検索')),
               const SearchTextFieldStartWith(),
-              const SearchTextFieldEndWith()
+              const SearchTextFieldEndWith(),
+              const SearchTextFieldInclude(),
             ]),
           ),
         ));
