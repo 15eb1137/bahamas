@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // import 'test_data.dart';
 
-void main() {
+// void main() {
   // testWidgets('TextField Learning test', (tester) async {
   //   await tester.pumpWidget(wrap(const StickyTextField(isNew: true)));
   //   expect(tester.testTextInput.isVisible, false);
@@ -54,16 +54,16 @@ void main() {
   //       wrap(LastEdit(now: now, lastEdit: lastEditDateTimeLastYear)));
   //   expect(find.text('編集日時: 2021年12月31日'), findsOneWidget);
   // });
-}
+// }
 
-Widget wrap(Widget child) {
-  return MaterialApp(home: Material(child: ProviderScope(child: child)));
-}
+// Widget wrap(Widget child) {
+//   return MaterialApp(home: Material(child: ProviderScope(child: child)));
+// }
 
-class MockCallBack {
-  int count = 0;
+// class MockCallBack {
+//   int count = 0;
 
-  void called() {
-    count++;
-  }
-}
+//   void called() {
+//     count++;
+//   }
+// }
