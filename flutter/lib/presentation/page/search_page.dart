@@ -15,29 +15,44 @@ class SearchPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chipsData = ref.watch(chipsDataProvider);
     final searchNotifier = ref.watch(searchNotifierProvider.notifier);
-
-    return Scaffold(
-      body: Column(children: [
-        const SearchConditionsForm(),
-        ElevatedButton(
-            onPressed: () async {
-              searchNotifier.changeCondition('^${chipsData.first['text']}.*');
-              final result = await searchNotifier.search();
-              ref.watch(resultStickiesProvider.notifier).state = result;
-              await ref.watch(stickiesNotifierProvider.notifier).fetchAll();
-              context.go('/stickiesResult');
-            },
-            child: const Text('検索')),
-        SearchTextFieldStartWith(
-          addStartWithChip: (text) {
-            ref.read(chipsDataProvider.notifier).state = [
-              ...ref.read(chipsDataProvider),
-              <String, dynamic>{'type': 'startWith', 'text': text}
-            ];
+    final _focusNode = FocusNode();
+    return Focus(
+        focusNode: _focusNode,
+        child: GestureDetector(
+          onTap: () {
+            _focusNode.requestFocus();
+            if (ref.read(searchTextFieldStartWithEditingTextProvider).text !=
+                '') {
+              ref.read(chipsDataProvider.notifier).state = [
+                ...ref.read(chipsDataProvider),
+                <String, dynamic>{
+                  'type': 'startWith',
+                  'text':
+                      ref.read(searchTextFieldStartWithEditingTextProvider).text
+                }
+              ];
+              ref.read(searchTextFieldStartWithEditingTextProvider).clear();
+            }
           },
-        )
-      ]),
-    );
+          child: Scaffold(
+            body: Column(children: [
+              const SearchConditionsForm(),
+              ElevatedButton(
+                  onPressed: () async {
+                    searchNotifier
+                        .changeCondition('^${chipsData.first['text']}.*');
+                    final result = await searchNotifier.search();
+                    ref.watch(resultStickiesProvider.notifier).state = result;
+                    await ref
+                        .watch(stickiesNotifierProvider.notifier)
+                        .fetchAll();
+                    context.go('/stickiesResult');
+                  },
+                  child: const Text('検索')),
+              const SearchTextFieldStartWith()
+            ]),
+          ),
+        ));
   }
 }
 
