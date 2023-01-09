@@ -3,7 +3,10 @@
 
 // import 'test_data.dart';
 
-// void main() {
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  testWidgets('', (tester) async {});
 // testWidgets('TextField Learning test', (tester) async {
 //   await tester.pumpWidget(wrap(const StickyTextField(isNew: true)));
 //   expect(tester.testTextInput.isVisible, false);
@@ -54,7 +57,7 @@
 //       wrap(LastEdit(now: now, lastEdit: lastEditDateTimeLastYear)));
 //   expect(find.text('編集日時: 2021年12月31日'), findsOneWidget);
 // });
-// }
+}
 
 // Widget wrap(Widget child) {
 //   return MaterialApp(home: Material(child: ProviderScope(child: child)));
