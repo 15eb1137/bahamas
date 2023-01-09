@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AppModelState {
   GoRouter? get router => throw _privateConstructorUsedError;
   SharedPreferences? get sharedPreferences =>
-      throw _privateConstructorUsedError;
+      throw _privateConstructorUsedError; // InAppReview? inAppReview,
+// FirebaseAnalytics? analytics,
+  Isar? get isarInstance => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppModelStateCopyWith<AppModelState> get copyWith =>
@@ -29,34 +31,45 @@ mixin _$AppModelState {
 abstract class $AppModelStateCopyWith<$Res> {
   factory $AppModelStateCopyWith(
           AppModelState value, $Res Function(AppModelState) then) =
-      _$AppModelStateCopyWithImpl<$Res>;
-  $Res call({GoRouter? router, SharedPreferences? sharedPreferences});
+      _$AppModelStateCopyWithImpl<$Res, AppModelState>;
+  @useResult
+  $Res call(
+      {GoRouter? router,
+      SharedPreferences? sharedPreferences,
+      Isar? isarInstance});
 }
 
 /// @nodoc
-class _$AppModelStateCopyWithImpl<$Res>
+class _$AppModelStateCopyWithImpl<$Res, $Val extends AppModelState>
     implements $AppModelStateCopyWith<$Res> {
   _$AppModelStateCopyWithImpl(this._value, this._then);
 
-  final AppModelState _value;
   // ignore: unused_field
-  final $Res Function(AppModelState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? router = freezed,
     Object? sharedPreferences = freezed,
+    Object? isarInstance = freezed,
   }) {
     return _then(_value.copyWith(
-      router: router == freezed
+      router: freezed == router
           ? _value.router
           : router // ignore: cast_nullable_to_non_nullable
               as GoRouter?,
-      sharedPreferences: sharedPreferences == freezed
+      sharedPreferences: freezed == sharedPreferences
           ? _value.sharedPreferences
           : sharedPreferences // ignore: cast_nullable_to_non_nullable
               as SharedPreferences?,
-    ));
+      isarInstance: freezed == isarInstance
+          ? _value.isarInstance
+          : isarInstance // ignore: cast_nullable_to_non_nullable
+              as Isar?,
+    ) as $Val);
   }
 }
 
@@ -67,60 +80,63 @@ abstract class _$$_AppModelStateCopyWith<$Res>
           _$_AppModelState value, $Res Function(_$_AppModelState) then) =
       __$$_AppModelStateCopyWithImpl<$Res>;
   @override
-  $Res call({GoRouter? router, SharedPreferences? sharedPreferences});
+  @useResult
+  $Res call(
+      {GoRouter? router,
+      SharedPreferences? sharedPreferences,
+      Isar? isarInstance});
 }
 
 /// @nodoc
 class __$$_AppModelStateCopyWithImpl<$Res>
-    extends _$AppModelStateCopyWithImpl<$Res>
+    extends _$AppModelStateCopyWithImpl<$Res, _$_AppModelState>
     implements _$$_AppModelStateCopyWith<$Res> {
   __$$_AppModelStateCopyWithImpl(
       _$_AppModelState _value, $Res Function(_$_AppModelState) _then)
-      : super(_value, (v) => _then(v as _$_AppModelState));
+      : super(_value, _then);
 
-  @override
-  _$_AppModelState get _value => super._value as _$_AppModelState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? router = freezed,
     Object? sharedPreferences = freezed,
+    Object? isarInstance = freezed,
   }) {
     return _then(_$_AppModelState(
-      router == freezed
+      freezed == router
           ? _value.router
           : router // ignore: cast_nullable_to_non_nullable
               as GoRouter?,
-      sharedPreferences == freezed
+      freezed == sharedPreferences
           ? _value.sharedPreferences
           : sharedPreferences // ignore: cast_nullable_to_non_nullable
               as SharedPreferences?,
+      freezed == isarInstance
+          ? _value.isarInstance
+          : isarInstance // ignore: cast_nullable_to_non_nullable
+              as Isar?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_AppModelState with DiagnosticableTreeMixin implements _AppModelState {
-  const _$_AppModelState(this.router, this.sharedPreferences);
+class _$_AppModelState implements _AppModelState {
+  const _$_AppModelState(
+      this.router, this.sharedPreferences, this.isarInstance);
 
   @override
   final GoRouter? router;
   @override
   final SharedPreferences? sharedPreferences;
+// InAppReview? inAppReview,
+// FirebaseAnalytics? analytics,
+  @override
+  final Isar? isarInstance;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppModelState(router: $router, sharedPreferences: $sharedPreferences)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AppModelState'))
-      ..add(DiagnosticsProperty('router', router))
-      ..add(DiagnosticsProperty('sharedPreferences', sharedPreferences));
+  String toString() {
+    return 'AppModelState(router: $router, sharedPreferences: $sharedPreferences, isarInstance: $isarInstance)';
   }
 
   @override
@@ -128,32 +144,37 @@ class _$_AppModelState with DiagnosticableTreeMixin implements _AppModelState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppModelState &&
-            const DeepCollectionEquality().equals(other.router, router) &&
-            const DeepCollectionEquality()
-                .equals(other.sharedPreferences, sharedPreferences));
+            (identical(other.router, router) || other.router == router) &&
+            (identical(other.sharedPreferences, sharedPreferences) ||
+                other.sharedPreferences == sharedPreferences) &&
+            (identical(other.isarInstance, isarInstance) ||
+                other.isarInstance == isarInstance));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(router),
-      const DeepCollectionEquality().hash(sharedPreferences));
+  int get hashCode =>
+      Object.hash(runtimeType, router, sharedPreferences, isarInstance);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AppModelStateCopyWith<_$_AppModelState> get copyWith =>
       __$$_AppModelStateCopyWithImpl<_$_AppModelState>(this, _$identity);
 }
 
 abstract class _AppModelState implements AppModelState {
   const factory _AppModelState(
-          final GoRouter? router, final SharedPreferences? sharedPreferences) =
-      _$_AppModelState;
+      final GoRouter? router,
+      final SharedPreferences? sharedPreferences,
+      final Isar? isarInstance) = _$_AppModelState;
 
   @override
   GoRouter? get router;
   @override
   SharedPreferences? get sharedPreferences;
+  @override // InAppReview? inAppReview,
+// FirebaseAnalytics? analytics,
+  Isar? get isarInstance;
   @override
   @JsonKey(ignore: true)
   _$$_AppModelStateCopyWith<_$_AppModelState> get copyWith =>
