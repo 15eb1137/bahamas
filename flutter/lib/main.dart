@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,11 +10,16 @@ import 'application/app.dart';
 // import 'package:flutter/rendering.dart';
 
 void main() async {
-  if (!kIsWeb) _setTargetPlatformForDesktop();
-  // debugPaintSizeEnabled = true;
-  WidgetsFlutterBinding.ensureInitialized();
-  await _setOptionalFeatures();
-  return runApp(const ProviderScope(child: AppLoading()));
+  await runZonedGuarded(() async {
+    if (!kIsWeb) _setTargetPlatformForDesktop();
+    // debugPaintSizeEnabled = true;
+    WidgetsFlutterBinding.ensureInitialized();
+    await _setOptionalFeatures();
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    return runApp(const ProviderScope(child: AppLoading()));
+  }, (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack);
+  });
 }
 
 class AppLoading extends ConsumerWidget {
