@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'application/app.dart';
+import 'config/firebase_options.dart';
+import 'config/firebase_options_dev.dart' as firebase_options_dev;
 // import 'package:flutter/rendering.dart';
 
 void main() async {
@@ -48,15 +51,15 @@ void _setTargetPlatformForDesktop() {
 
 Future<void> _setOptionalFeatures() async {
   // await MobileAds.instance.initialize();
-  // if (!kDebugMode) {
-  //   await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform,
-  //   );
-  // } else {
-  //   await Firebase.initializeApp(
-  //     options: firebase_options_dev.DefaultFirebaseOptions.currentPlatform,
-  //   );
-  // }
+  if (!kDebugMode) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } else {
+    await Firebase.initializeApp(
+      options: firebase_options_dev.DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   // await Purchases.setDebugLogsEnabled(true);
   // if (Platform.isAndroid) {
   //   await Purchases.setup("goog_cTiatAWufSELHXRFGJsvTQWuYtV");
