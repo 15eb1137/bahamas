@@ -43,8 +43,10 @@ class StickySinglePage extends ConsumerWidget {
                 floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.collections),
                     onPressed: (() {
-                      FirebaseCrashlytics.instance.log('Manual CrashLog');
-                      FirebaseCrashlytics.instance.crash();
+                      // FirebaseCrashlytics.instance.log('Manual Crash Log');
+                      // FirebaseCrashlytics.instance.crash();
+                      FirebaseCrashlytics.instance.log('Manual Exception Log');
+                      throw Exception();
                       context.go('/stickies');
                       ref.read(stickiesNotifierProvider.notifier).fetchAll();
                     })))));
