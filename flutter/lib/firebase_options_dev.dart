@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '532014881582',
     projectId: 'com-iori-bahamas-dev',
     storageBucket: 'com-iori-bahamas-dev.appspot.com',
-    iosClientId: '532014881582-r66q7gofbcc5okulttjo06d4k78d3jkf.apps.googleusercontent.com',
+    iosClientId:
+        '532014881582-r66q7gofbcc5okulttjo06d4k78d3jkf.apps.googleusercontent.com',
     iosBundleId: 'com.iori.bahamas',
   );
 }

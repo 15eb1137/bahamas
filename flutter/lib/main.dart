@@ -13,18 +13,18 @@ import 'config/firebase_options_dev.dart' as firebase_options_dev;
 // import 'package:flutter/rendering.dart';
 
 void main() async {
-    if (!kIsWeb) _setTargetPlatformForDesktop();
-    // debugPaintSizeEnabled = true;
-    WidgetsFlutterBinding.ensureInitialized();
-    await _setOptionalFeatures();
-    FlutterError.onError = (errorDetails) {
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-    };
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
-    };
-    return runApp(const ProviderScope(child: AppLoading()));
+  if (!kIsWeb) _setTargetPlatformForDesktop();
+  // debugPaintSizeEnabled = true;
+  WidgetsFlutterBinding.ensureInitialized();
+  await _setOptionalFeatures();
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+  return runApp(const ProviderScope(child: AppLoading()));
 }
 
 class AppLoading extends ConsumerWidget {
