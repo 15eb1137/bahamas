@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -42,6 +43,8 @@ class StickySinglePage extends ConsumerWidget {
                 floatingActionButton: FloatingActionButton(
                     child: const Icon(Icons.collections),
                     onPressed: (() {
+                      FirebaseCrashlytics.instance.log('Manual CrashLog');
+                      FirebaseCrashlytics.instance.crash();
                       context.go('/stickies');
                       ref.read(stickiesNotifierProvider.notifier).fetchAll();
                     })))));
